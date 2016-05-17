@@ -1,0 +1,14 @@
+#
+# 16th May,2016.
+#
+
+The project directory has different build projects
+Such as XCode project for ios,Make file project for Linux PC,visual studio for windows,and ndk for Android.
+All the build projects share the same source code whitch is in "src" directory.
+
+Different build methods.
+ios : Project in "ios" directory.Use the tool XCode open the project file directly,and then build.
+linux : Project in "linux" directory.Use the command "make" to build.
+Android : Project in "jni" directory.Use the command "ndk-build" to build if you installed the ndk environment.
+windows : Project in "windows" directory. Use the tool visual studio 2013 open the project file directly,and build.
+
