@@ -1,0 +1,31 @@
+smart:
+./smart 设备地址[1/24/25] 并发数[1-255] [命令1] [命令2] [命令3] [命令4] [命令5] [命令6] [命令7] [命令8]
+可用命令：
+AT+KTKJ=?
+AT+KTSM=?
+AT+KTYX=?
+AT+KTFX=?
+AT+KTSD=?
+AT+KTWD=?
+AT+KTGT=?
+AT+KTDR=?
+AT+KTJN=?
+AT+KTBY=?
+
+smart_all:
+./smart_all 设备地址[1/24/25] 并发数[1-255]
+
+
+test.sh：
+需要有sudo权限
+开始：
+touch running
+chomd +x test.sh
+./test.sh
+结束:
+rm running
+
+注:
+将libsmart.so拷贝到/usr/lib目录并改名为libsmart.so
+对于32位系统需要将libsmart32.so 拷贝到/usr/lib目录并改名为libsmart.so
+执行文件为smart32和smart_all32

@@ -16,7 +16,7 @@ SUBDIRS := $(subst include,,$(SUBDIRS))
 SUBDIRS := $(subst javaInterface,,$(SUBDIRS))
 #endif
 
-$(warning SUBDIRS is $(SUBDIRS) OS is $(OS))
+#$(warning SUBDIRS is $(SUBDIRS) OS is $(OS))
 export OBJDIR
 ifeq ($(MAKELEVEL),0)
 all : MSG

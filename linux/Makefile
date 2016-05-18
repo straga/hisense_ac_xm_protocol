@@ -3,7 +3,7 @@
 # The Top make file to build
 # 
 
-CODEEXT := cpp
+CODEEXT ?= cpp
 TARGET ?= device
 ROOT := $(shell pwd)
 SRC_ROOT := $(ROOT)/../src
@@ -16,13 +16,11 @@ BINNAME = main
 MAIN_OBJS = main.o
 MAIN_SRC = $(MAIN_OBJS:%.o=%.c)
 
-SUBDIRS =$(shell ls -l $(SRC_ROOT) | grep ^d | awk '{if($$9 != "obj") print $$9}')
-SUBDIRS := $(addprefix $(SRC_ROOT)/,$(SUBDIRS))
-# $(warning "SUBDIRS is $(SUBDIRS)")
+
 MAINLDFLAGS = -L$(OBJDIR) -l$(TARGET)
 
 all : SUBOBJ $(BINNAME) 
-.PHONY : all clean $(BINNAME)
+.PHONY : all clean SUBOBJ $(BINNAME)
 
 SUBOBJ :
 	$(AT)echo ""
