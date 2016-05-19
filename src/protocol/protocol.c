@@ -1,11 +1,6 @@
 
 #include    <sys/types.h>
 #include    <sys/stat.h>
-#include    <sys/select.h>
-#include    <sys/socket.h>
-#include    <netinet/in.h>
-#include    <arpa/inet.h>
-#include    <netdb.h>
 #include	"xmlog.h"
 #include	"xm_type.h"
 #include    "message.h"
@@ -14,10 +9,6 @@
 #include    "cmdanalysis.h"
 #include    "air-condition_msg.h"
 #include    "protocol.h"
-#include    "client.h"
-#include    "server.h"
-#include    "recv.h"
-#include    "send.h"
 #include 	"xlf_crc.h"
 
 pthread_t tid_server=0;
@@ -31,370 +22,6 @@ extern int g_xm_connect_num;
 extern uchar xm_address1[];
 extern uchar xm_address2[];
 
-void xm_wait_init(XM_SYNC * psync){
-#if USE_SEM
-	sem_init(&psync->sem, 0, 0);
-#else
-	pthread_cond_init(&psync->cond, NULL);
-#endif
-	pthread_mutex_init(&psync->mutex, NULL);
-    psync->value=SEM_TIMEOUT;
-	psync->is_wait=0;
-}
-
-void xm_wait_sync(XM_SYNC * psync){
-#if DEBUG_THREAD
-	XM_D("wait_sync:sync %p\r\n",psync);
-#endif
-	psync->is_wait=1;
-	psync->value=SEM_TIMEOUT;
-	time(&(psync->timeout));
-#if USE_SEM
-	while(sem_trywait(&psync->sem)!=0 && psync->value){
-		sleep(1);
-		psync->value--;
-	}
-#else
-#if DEBUG_THREAD
-	XM_D("wait_sync:sync cond\r\n");
-#endif
-    pthread_cond_wait(&psync->cond, &psync->mutex);
-#endif
-	psync->timeout=0;
-}
-
-void xm_wait_lock(XM_SYNC * psync){
-	pthread_mutex_lock(&psync->mutex);
-}
-
-void xm_wait_signal(XM_SYNC * psync){
-#if DEBUG_THREAD
-	XM_D("wait_sync:wait signal %p\r\n",psync);
-#endif
-	//TP_DATA_IS_WAIT(psync);	
-#if USE_SEM
-	sem_post(&psync->sem);
-#else
-#if DEBUG_THREAD
-	XM_D("wait_sync:wait signal\r\n");
-#endif
-	pthread_mutex_lock(&psync->mutex);
-	pthread_cond_signal(&psync->cond);	
-	pthread_mutex_unlock(&psync->mutex);
-#endif
-	psync->is_wait=0;
-}
-
-void xm_wait_broadcast(XM_SYNC * psync){
-#if USE_SEM
-#else
-    pthread_cond_broadcast(&psync->cond);
-#endif
-}
-
-void xm_wait_unlock(XM_SYNC * psync){
-	pthread_mutex_unlock(&psync->mutex);
-}
-void xm_wait_destroy(XM_SYNC * psync){
-#if USE_SEM
-	sem_destroy(&(psync->sem));
-#else
-	pthread_cond_destroy(&(psync->cond));
-#endif
-	pthread_mutex_destroy(&(psync->mutex));
-}
-
-int xm_get_socket(int index){
-	return client_get_socket(index);
-}
-
-void xm_init_index(JavaVM *pjvm,int connect_num,int send_num,int max_wait_node){
-	if(!xm_inited){	
-		xm_inited++;
-		xm_exited=0;
-		XmInitLog(MAX_SEND_POOL);
-		if(max_wait_node>0)
-			g_xm_max_wait_node=max_wait_node;
-		client_init_lock();
-		XM_D("init_index:jvm %p \r\n",pjvm);
-#if DEBUG_RS
-		XM_D("init_index:connect_num %d send_num %d max_wait_node %d\r\n",connect_num,send_num,max_wait_node);
-#endif
-		if(client_init_client(pjvm,&tid_send,&xm_exited,connect_num,send_num)!=0){
-			xm_inited--;
-			return ;
-		}
-	}else{
-		xm_exited=0;
-		client_clean_client(pjvm,&tid_send,&xm_exited);
-	}
-}
-void xm_init(JavaVM *pjvm){	
-
-	xm_init_index(pjvm,XM_CONNECT_NUM,MAX_SEND_POOL,MAX_CMD_NUM);
-}
-
-int xm_exit_socket(int socketfd){
-	int nRet=-1;
-	XmSetLog("exit_socket",xm_sendid++);
-	if(xm_exited){
-		XM_E("ERROR exit_socket:lib is exit %d\r\n",xm_exited);
-		goto exit_socket_finish;
-	}
-	
-	if(!xm_inited){
-		XM_E("ERROR exit_socket:lib not init %d\r\n",xm_exited);
-		goto exit_socket_finish;
-	}
-	if(socketfd<=0){
-		XM_E("ERROR exit_socket:socket vail %d\r\n",socketfd);  
-		goto exit_socket_finish;
-	}
-	nRet = client_exit_client(socketfd);
-exit_socket_finish:
-	XmDelLog();
-	return nRet;
-}
-void xm_stop_servsr(void){
-	servsr_stop();
-}
-
-int xm_init_servsr(char * server_port,int connect){
-	if(xm_exited){
-		XM_E("ERROR init_servsr:lib is exit %d\r\n",xm_exited);
-		return -1;
-	}
-	
-	if(!xm_inited){
-		XM_E("ERROR init_servsr:lib not init %d\r\n",xm_exited);
-		return -1;
-	}
-	if(!server_port){
-		XM_E("ERROR init_servsr:port not set %p\r\n",server_port);  
-		return XM_ERROR_NOT_INIT;
-	}
-	return servsr_start(&tid_server,server_port,&xm_exited,connect);
-}
-int xm_init_withsocket_index(int socketfd,int id){
-	XM_PROTOCOL *pxm;
-	if(xm_exited){
-		XM_E("ERROR init_withsocket_index:lib is exit %d\r\n",xm_exited);
-		return -1;
-	}
-	
-	if(!xm_inited){
-		XM_E("ERROR init_withsocket_index:lib not init %d\r\n",xm_exited);
-		return -1;
-	}
-	pxm=client_new_index(socketfd,id);
-	if(pxm==NULL){		
-		XM_E("ERROR init_withsocket_index:socket add fail %p\r\n",pxm);
-		return -1;
-	}	
-	return pxm->xm_index;
-}
-int xm_init_withsocket(int socketfd){
-	return xm_init_withsocket_index(socketfd,0x1);
-}
-
-int xm_init_socket_index(char * server_ip,char * server_port,int id,int reset){
-	int socketfd=-1;
-	XM_PROTOCOL *pxm;
-	XmSetLog("init_socket",xm_sendid++);
-	if(!xm_inited){
-		XM_E("ERROR init_socket_index:lib not init %d\r\n",xm_inited);
-		goto exit_init_socket;
-	}
-	if(xm_exited){
-		if (reset)
-			xm_exited=0;
-		else
-			{
-			XM_E("ERROR init_socket_index:lib is exit %d\r\n",xm_exited);
-			goto exit_init_socket;
-			}
-	}
-	xm_init_index(NULL,-1,-1,-1);
-	socketfd=init_socket_client(server_ip,server_port);
-	pxm=client_new_index(socketfd,id);
-	if(pxm==NULL){
-		if(socketfd!=-1){
-			close(socketfd);
-			socketfd=-1;
-		}
-		goto exit_init_socket;
-	}
-#if DEBUG_SCOKET
-	XM_D("init_socket:socket %d index %p\r\n",socketfd,pxm);
-#endif
-	socketfd=pxm->xm_index;
-exit_init_socket:
-	XmDelLog();
-	return socketfd;	
-}
-int xm_init_flag(char * server_ip,char * server_port,int id,char cflag){
-	XM_PROTOCOL *pxm=NULL;
-	int ret;
-	if(xm_exited){
-		XM_E("ERROR init_flag:lib is exit %d\r\n",xm_exited);
-		return -1;
-	}
-	
-	if(!xm_inited){
-		XM_E("ERROR init_flag:lib not init %d\r\n",xm_exited);
-		return -1;
-	}
-	ret=xm_init_socket_index(server_ip,server_port,id,0);
-	pxm=client_get_client(ret);
-	if(pxm!=NULL){
-		pxm->XM_Frame_Buffer[0]='X';
-		pxm->XM_Frame_Buffer[1]='M';
-		pxm->XM_Frame_Buffer[2]='-';
-		pxm->XM_Frame_Buffer[3]=cflag;
-		pxm->XM_Frame_Buffer[4]='\0';
-		ret=send_tcp(pxm,pxm->XM_Frame_Buffer,4);
-		if(ret ==XM_ERROR_SOCKET_SEND){
-#if DEBUG_SCOKET
-			XM_D("flag:socket send fail %d\r\n",ret);
-#endif
-			close(pxm->xm_socket_client);
-			pxm->xm_socket_client=-1;
-		}else{
-			return pxm->xm_index;
-		}
-	}
-	return -1;
-}
-int xm_init_flag_withsocket(int socket_fd,int id,char cflag){
-	XM_PROTOCOL *pxm=NULL;
-	int ret;
-	if(xm_exited){
-		XM_E("ERROR init_flag_withsocket:lib is exit %d\r\n",xm_exited);
-		return -1;
-	}
-	
-	if(!xm_inited){
-		XM_E("ERROR init_flag_withsocket:lib not init %d\r\n",xm_exited);
-		return -1;
-	}
-	pxm=client_new_index(socket_fd,id);
-	if(pxm==NULL){
-		XM_E("ERROR init_flag_withsocket:error socket %d exit %d init %d\r\n",socket_fd,xm_exited,xm_inited);
-		return -1;
-	}	
-	pxm->XM_Frame_Buffer[0]='X';
-	pxm->XM_Frame_Buffer[1]='M';
-	pxm->XM_Frame_Buffer[2]='-';
-	pxm->XM_Frame_Buffer[3]=cflag;
-	pxm->XM_Frame_Buffer[4]='\0';
-	ret=send_tcp(pxm,pxm->XM_Frame_Buffer,4);
-	if(ret ==XM_ERROR_SOCKET_SEND){
-#if DEBUG_SCOKET
-		XM_D("flag:socket send fail %d\r\n",ret);
-#endif
-		close(pxm->xm_socket_client);
-		pxm->xm_socket_client=-1;
-	}else{
-		return pxm->xm_index;
-	}
-	return -1;
-}
-
-int xm_init_virtual(char * server_ip,char * server_port,int id){
-	return xm_init_flag(server_ip,server_port,id,'V');
-}
-
-int xm_init_test(char * server_ip,char * server_port,int id){
-	return xm_init_flag(server_ip,server_port,id,'C');
-}
-
-int xm_exit(void){
-	int i;XM_NODE *pnodeseek,*pnodetmp;
-	XmSetLog("exit",xm_sendid++);
-#if DEBUG_RS
-	XM_D("exit:enter \r\n");
-#endif
-//	xm_exited=1;
-#if DEBUG_RS
-	XM_D("exit:wait server\r\n");
-#endif
-	if(tid_server!=0){
-		//servsr_stop();
-		pthread_join (tid_server, NULL);
-	}
-	tid_server=0;
-	
-#ifndef ANDROID
-	xm_exited=1;
-#if DEBUG_RS
-		XM_D("exit:wait send\r\n");
-#endif
-
-	if(tid_send!=0){
-		pthread_join (tid_send, NULL);
-	}
-	tid_send=0;
-#else
-//add by mujian for close socket		
-for (i=0;i<g_xm_connect_num;i++)	
-{
-	XM_D("socket %d i %d g_xm_connect_num %d!!\r\n",xm_protocl[i].xm_socket_client,i,g_xm_connect_num);
-		pthread_mutex_lock(&xm_protocl[i].mutex);
-	if (xm_protocl[i].xm_socket_client!=-1)
-		{	
-			xm_protocl[i].xm_exit=1;
-			pnodeseek=xm_protocl[i].node;
-			xm_protocl[i].xm_sendready=0;
-			xm_protocl[i].xm_send=0;
-			xm_protocl[i].timeout=0;
-			xm_protocl[i].sendcmd=0;
-			xm_protocl[i].sendsub=0;
-			xm_protocl[i].xm_seting=1;			
-			while(pnodeseek){
-			pnodetmp=pnodeseek->end;			
-			pnodeseek->errorid=XM_ERROR_FORCE_CLOSE_NODE;
-			pnodeseek->xm_sendready=0;
-#if DEBUG_THREAD
-			XM_D("exit_client:state_thread post sem node %d index %d socket %d\r\n",pnodeseek->id,pnodeseek->index,xm_protocl[i].xm_socket_client);
-#endif
-			xm_wait_signal((XM_SYNC *)pnodeseek);
-			pnodeseek=pnodetmp;
-			}
-			//XM_D("close %d socket !!5\r\n",xm_protocl[i].xm_socket_client);
-			xm_protocl[i].node=NULL;
-			XM_D("close %d socket !!\r\n",xm_protocl[i].xm_socket_client);
-			close(xm_protocl[i].xm_socket_client);
-			xm_protocl[i].xm_socket_client=-1;
-			xm_protocl[i].xm_exit=0;			
-	}
-	pthread_mutex_unlock(&xm_protocl[i].mutex);
-}	
-//add by mujian for close socket
-#endif
-
-	
-#if DEBUG_RS
-	XM_D("exit:return\r\n");
-#endif
-	XmDelLog();
-	return XM_SUCCESS;
-}
-
-char * xm_get_packet(int index){
-	XM_PROTOCOL * pxm=client_get_client(index);
-	if(pxm!=NULL){
-		return pxm->XM_At_Send;
-	}
-	return NULL;
-}
-
-char * xm_get_parse(int index){
-	XM_PROTOCOL * pxm=client_get_client(index);
-	if(pxm!=NULL){
-		return pxm->XM_At_Recv;
-	}
-	return NULL;
-}
 
 char *xm_build_packet(char *pbuf,int *len,int address){
 	int i;
@@ -798,6 +425,7 @@ XM_AT_RET_LIST xm_at_ret_list[]={
 		
 };
 
+void xlf_crc(uchar *pbuf,uchar len,struct frame_crc *crc_buf);	
 
 void xlf_pasre_info(struct message_struct * packet_message_struct,uchar *buf,int buflen){
 	uchar *pbuf=NULL;
@@ -846,7 +474,7 @@ void xlf_pasre_info(struct message_struct * packet_message_struct,uchar *buf,int
 	//printf_buf("frame_struct",(char *)pbuf,sizeof(struct frame_struct));
 	
 	/*先进行帧结构的转义字符处理*/
-	for(i=0;i<sizeof(struct frame_struct);i++){
+	for(i=0;i<(int)sizeof(struct frame_struct);i++){
 		if(pbuf[i]==0xf4 && pbuf[i+1]==0xf4){
 			memcpy(&pbuf[i],&pbuf[i+1],buflen-i-(pbuf-buf)-1);
 			buf[buflen-1]=0;
@@ -985,7 +613,7 @@ void xlf_pasre(struct message_struct * packet_message_struct,uchar *buf,int bufl
 	//printf_buf("frame_struct",(char *)pbuf,sizeof(struct frame_struct));
 	
 	/*先进行帧结构的转义字符处理*/
-	for(i=0;i<sizeof(struct frame_struct);i++){
+	for(i=0;i<(int)sizeof(struct frame_struct);i++){
 		if(pbuf[i]==0xf4 && pbuf[i+1]==0xf4){
 			memcpy(&pbuf[i],&pbuf[i+1],buflen-i-(pbuf-buf)-1);
 			buf[buflen-1]=0;
@@ -1151,6 +779,7 @@ void xlf_crc(uchar *pbuf,uchar len,struct frame_crc *crc_buf){
 	crc_buf->crc_high=((ncrc&0xff00)>>8);
 	crc_buf->crc_low=ncrc&0xff;
 }
+void move_data(uchar * buf,int len,int offset);
 
 int xlf_build(int type_checksum ,char sequence,uchar *sendbuf,uchar *buf,int buflen,uchar moblie_type,uchar moblie_address,uchar device_type,uchar device_address){
 	uchar *message_buf=NULL;
@@ -1368,8 +997,8 @@ int xlf_packet_build_frame(int type_checksum,char sequence,char *sendbuf,char *b
 	
 	//add by mujian for copy node data to pxm data
 	statusInit(&xm);
-	retlen=xlf_build(type_checksum,sequence,xm.XM_Frame_Buffer,(uchar *)xm.XM_Status_Value,New_Msg_Head(&xm,(uchar *)xm.XM_Status_Value,xm.sendcmd,xm.sendsub,(uchar *)xm.XM_Setting_Buffer,atoi(xm.XM_Status_Value)),moblie_type,moblie_address,device_type,device_address);
-	retlen=BIN2HEX(xm.XM_Frame_Buffer,retlen,sendbuf);
+	retlen=xlf_build(type_checksum,sequence,xm.XM_Frame_Buffer,(uchar *)xm.XM_Status_Value,New_Msg_Head(&xm,(uchar *)xm.XM_Status_Value,xm.sendcmd,xm.sendsub,(uchar *)xm.XM_Setting_Buffer,atoi((char*)xm.XM_Status_Value)),moblie_type,moblie_address,device_type,device_address);
+	retlen=BIN2HEX((char *)xm.XM_Frame_Buffer,retlen,sendbuf);
 	if(retlen){
 		sendbuf[retlen]='\r';
 		sendbuf[retlen+1]='\n';
@@ -1498,8 +1127,8 @@ int xlf_packet_build(int type_checksum,char sequence,char *sendbuf,char *buf,int
 	
 	//add by mujian for copy node data to pxm data
 	statusInit(&xm);
-	retlen=xlf_build(type_checksum,sequence,xm.XM_Frame_Buffer,(uchar *)xm.XM_Status_Value,New_Msg_Head(&xm,(uchar *)xm.XM_Status_Value,xm.sendcmd,xm.sendsub,(uchar *)xm.XM_Setting_Buffer,atoi(xm.XM_Status_Value)),moblie_type,moblie_address,device_type,device_address);
-	retlen=BIN2HEX(xm.XM_Frame_Buffer,retlen,sendbuf);
+	retlen=xlf_build(type_checksum,sequence,xm.XM_Frame_Buffer,(uchar *)xm.XM_Status_Value,New_Msg_Head(&xm,(uchar *)xm.XM_Status_Value,xm.sendcmd,xm.sendsub,(uchar *)xm.XM_Setting_Buffer,atoi((char*)xm.XM_Status_Value)),moblie_type,moblie_address,device_type,device_address);
+	retlen=BIN2HEX((char *)xm.XM_Frame_Buffer,retlen,sendbuf);
 	if(retlen){
 		sendbuf[retlen]='\r';
 		sendbuf[retlen+1]='\n';
@@ -1560,7 +1189,7 @@ int xlf_packet_pasre_deviceaddress(char *retbuf,char *pbuf,int len){
 	printf_buf("xlf_packet_pasre hex",(uchar *)binbuf,packetlen);
 	#endif
 	memset(&ret_data,0,sizeof(struct message_struct));
-	xlf_pasre_info(&ret_data,binbuf,packetlen);
+	xlf_pasre_info(&ret_data,(uchar *)binbuf,packetlen);
 	XM_D("xlf_packet_pasre:error %d\r\n",ret_data.error);
 	if(ret_data.error==0){
 		snprintf(retbuf,XM_MAX_BUF,"%d",ret_data.source_no);
@@ -1601,7 +1230,7 @@ int xlf_packet_pasre_sourcedevicetype(char *retbuf,char *pbuf,int len){
 	printf_buf("xlf_packet_pasre hex",(uchar *)binbuf,packetlen);
 	#endif
 	memset(&ret_data,0,sizeof(struct message_struct));
-	xlf_pasre_info(&ret_data,binbuf,packetlen);
+	xlf_pasre_info(&ret_data,(uchar *)binbuf,packetlen);
 	XM_D("xlf_packet_pasre:error %d\r\n",ret_data.error);
 	if(ret_data.error==0){
 		snprintf(retbuf,XM_MAX_BUF,"%d",ret_data.source_module);
@@ -1641,7 +1270,7 @@ int xlf_packet_pasre_sourcedeviceaddress(char *retbuf,char *pbuf,int len){
 	printf_buf("xlf_packet_pasre hex",(uchar *)binbuf,packetlen);
 	#endif
 	memset(&ret_data,0,sizeof(struct message_struct));
-	xlf_pasre_info(&ret_data,binbuf,packetlen);
+	xlf_pasre_info(&ret_data,(uchar *)binbuf,packetlen);
 	XM_D("xlf_packet_pasre:error %d\r\n",ret_data.error);
 	if(ret_data.error==0){
 		snprintf(retbuf,XM_MAX_BUF,"%d",ret_data.source_no);
@@ -1679,7 +1308,7 @@ int xlf_packet_pasre_destinationdevicetype(char *retbuf,char *pbuf,int len){
 	printf_buf("xlf_packet_pasre hex",(uchar *)binbuf,packetlen);
 	#endif
 	memset(&ret_data,0,sizeof(struct message_struct));
-	xlf_pasre_info(&ret_data,binbuf,packetlen);
+	xlf_pasre_info(&ret_data,(uchar *)binbuf,packetlen);
 	XM_D("xlf_packet_pasre:error %d\r\n",ret_data.error);
 	if(ret_data.error==0){
 		snprintf(retbuf,XM_MAX_BUF,"%d",ret_data.destination_module);
@@ -1719,7 +1348,7 @@ int xlf_packet_pasre_destinationdeviceaddress(char *retbuf,char *pbuf,int len){
 	printf_buf("xlf_packet_pasre hex",(uchar *)binbuf,packetlen);
 	#endif
 	memset(&ret_data,0,sizeof(struct message_struct));
-	xlf_pasre_info(&ret_data,binbuf,packetlen);
+	xlf_pasre_info(&ret_data,(uchar *)binbuf,packetlen);
 	XM_D("xlf_packet_pasre:error %d\r\n",ret_data.error);
 	if(ret_data.error==0){
 		snprintf(retbuf,XM_MAX_BUF,"%d",ret_data.destination_no);
@@ -1753,7 +1382,8 @@ int xlf_packet_pasre(char *retbuf,char *pbuf,int len,int address){
 	printf_buf("xlf_packet_pasre string",(uchar *)pbuf,len);
 	#endif
 	XM_AT_RET * p_at_ret;
-	int datalen,i,j,k,packetlen;
+	int datalen,j,k,packetlen;
+    unsigned i;
 	char binbuf[512];
 	memset(binbuf,0,512);
 	// here should check the length if it too long 
@@ -1762,7 +1392,7 @@ int xlf_packet_pasre(char *retbuf,char *pbuf,int len,int address){
 	printf_buf("xlf_packet_pasre hex",(uchar *)binbuf,packetlen);
 	#endif
 	memset(&ret_data,0,sizeof(struct message_struct));
-	xlf_pasre(&ret_data,binbuf,packetlen);
+	xlf_pasre(&ret_data,(uchar *)binbuf,packetlen);
 	if(memcmp(pbuf,"+DISCONNECT",11)==0){			
 				ret_data.error=HEAD_ERROR_DISCONNECT;
 				XM_D("xlf_packet_pasre:error HEAD_ERROR_DISCONNECT=%d\r\n",ret_data.error);
@@ -1820,7 +1450,7 @@ int xlf_packet_pasre(char *retbuf,char *pbuf,int len,int address){
 								XM_D("xlf_packet_pasre:type %d query %d support %d set %d offset %d len %d \r\n",p_at_ret[j].type,p_at_ret[j].parameter->recv[k].query,p_at_ret[j].parameter->recv[k].support,p_at_ret[j].parameter->recv[k].set,p_at_ret[j].parameter->recv[k].offset,p_at_ret[j].parameter->recv[k].len);
 								#endif
 								if((p_at_ret[j].type==XM_SEND_QUERY && p_at_ret[j].parameter->recv[k].query) || (p_at_ret[j].type==XM_SEND_SUPPORT && p_at_ret[j].parameter->recv[k].support) || (p_at_ret[j].type==XM_SEND_SETTING && p_at_ret[j].parameter->recv[k].set) ){
-									xlf_parse_para(retbuf,&(p_at_ret[j]),ret_data.data,&p_at_ret[j].parameter->recv[k]);
+									xlf_parse_para(retbuf,&(p_at_ret[j]),(char *)ret_data.data,&p_at_ret[j].parameter->recv[k]);
 								}
 							}
 						}else{
@@ -2018,320 +1648,6 @@ char *xm_parse_para(char *cmdpbuf,int cmdlen,char *pbuf,int len){
 		snprintf(retstr,4096,"%s\r\n",node.xm_at.XM_At_Ret);
 	//}
 	return retstr;
-}
-
-char* xm_ret_cmd (char * status,char *pbuf,int *len){
-	int i;
-	uchar address,j,nBitOffset,nByteOffset,nMask,nValue,nLen=0,ret,nRecv=0;
-	uchar *sendbuf=NULL;
-	XM_Command *pCommd=NULL;
-	MessageHead * pMsg=NULL;
-	XM_PROTOCOL xm;	
-	char *retstr=NULL;
-	char *xm_status=status;
-	char *xm_data=status+62;
-	char *xm_devid=status+62+8;
-	char *xm_baundrate=status+62+8+18;
-	char *xm_wifi_buf=status+62+8+18+1;
-	char *xm_ver_buf=status+62+8+18+1+2;
-	char *xm_devpower=status+62+8+18+1+2+4;
-	char *xm_gn=status+62+8+18+1+2+4+48;
-	char *xm_ver_mutil=status+62+8+18+1+2+4+48+17;
-	memset(&xm,0,sizeof(XM_PROTOCOL));
-	xm.xm_socket_client=-1;
-	xm.xm_addres=0xff;
-	xm.xm_seting=1; 
-	xm.xm_exit=0;
-	xm.xm_index=0;
-	statusInit(&xm);	
-#if DEBUG_CMD
-	printf_buf("buf",pbuf,*len);
-#endif
-	memcpy(xm.XM_Frame_Buffer,pbuf,*len);
-	for(i=0;i<*len;i++){
-		ret=Parse_Read(&xm,xm.XM_Frame_Buffer+i,Proc_recv);
-		if(ret==XM_SUCCESS){
-			pMsg=(MessageHead *)xm.XM_Status_Buffer;
-			pMsg->Result=1;
-			//查找哪个命令执行
-			if(xm.xm_status.P_XM_KL_Network_Address_1){
-				xm.xm_addres_1[0]=xm.xm_status.P_XM_KL_Network_Address_1[0];
-				xm.xm_addres_1[1]=xm.xm_status.P_XM_KL_Network_Address_1[1];
-			}
-			if(xm.xm_status.P_XM_KL_Network_Address_2){
-				xm.xm_addres_2[0]=xm.xm_status.P_XM_KL_Network_Address_2[0];
-				xm.xm_addres_2[1]=xm.xm_status.P_XM_KL_Network_Address_2[1];
-			}
-			address=xm.xm_addres_1[0];
-			if(xm.xm_status.MsgLen>sizeof(MessageHead)){
-				pCommd=getcommand(address,pMsg->MessageType,pMsg->MessageSubType,(char *)(xm.XM_Status_Buffer+sizeof(MessageHead)),xm.xm_status.MsgLen-sizeof(MessageHead));
-			}
-	#if DEBUG_RS
-			XM_D("ret_cmd:command %p c %d s %d a %d\r\n", pCommd,pMsg->MessageType,pMsg->MessageSubType,address);
-	#endif
-			if(pMsg->MessageType==101 && pMsg->MessageSubType==0 && address==0x01){
-				sendbuf=(uchar *)xm_status;nLen=62;
-			}
-			if(pMsg->MessageType==4 && address==0x01){
-				sendbuf=(uchar *)xm_devid;nLen=16;
-			}
-			if(pMsg->MessageType==5 && address==0x01){
-				sendbuf=(uchar *)xm_devid;nLen=18;
-			}
-			if(pMsg->MessageType==7 && (pMsg->MessageSubType==0 || pMsg->MessageSubType==1) && address==0x01){
-				sendbuf=(uchar *)xm_ver_buf;nLen=4;
-			}
-			if(pMsg->MessageType==7 && pMsg->MessageSubType==4 && address==0x01){
-				sendbuf=(uchar *)xm_ver_mutil;nLen=255;
-			}
-			if(pMsg->MessageType==9 && pMsg->MessageSubType==2 && address==0x01){
-				sendbuf=(uchar *)xm_devid+16;nLen=2;
-			}
-			if(pMsg->MessageType==10 && (pMsg->MessageSubType==0 || pMsg->MessageSubType==1)  && address==0x01){
-				sendbuf=(uchar *)xm_devid+16;nLen=2;
-			}
-			if(pMsg->MessageType==10 && pMsg->MessageSubType==4 && address==0x01){
-				sendbuf=(uchar *)xm_devid;nLen=18;
-			}
-			if(pMsg->MessageType==26 && pMsg->MessageSubType==0 && address==0x01){
-				sendbuf=(uchar *)xm_baundrate;nLen=1;
-			}
-			if(pMsg->MessageType==30 && pMsg->MessageSubType==0 && address==0x01){
-				sendbuf=(uchar *)xm_wifi_buf;nLen=2;
-			}					
-			if((pMsg->MessageType==101 || pMsg->MessageType==102) && pMsg->MessageSubType==0 && address==0x01){
-				sendbuf=(uchar *)xm_status;nLen=62;
-			}
-			if((pMsg->MessageType==101 || pMsg->MessageType==102) && pMsg->MessageSubType==32 && address==0x01){
-				sendbuf=(uchar *)xm_data;nLen=8;
-			}
-			if(pMsg->MessageType==102 && pMsg->MessageSubType==48 && address==0x01){
-				sendbuf=(uchar *)xm_devpower;nLen=48;
-			}
-			if(pMsg->MessageType==102 && pMsg->MessageSubType==64 && address==0x01){
-				sendbuf=(uchar *)xm_gn;nLen=17;
-			}
-			if(pMsg->MessageType==103 && address==0x01){
-				sendbuf=(uchar *)xm_devid;nLen=16;
-			}
-			if(pCommd && sendbuf){	
-				nLen=0;
-				for(j=0;j<pCommd->recv_num;j++){
-					if(pCommd->recv[j].set)
-						nLen=pCommd->query_len;
-					if(pCommd->send[j].set==1 && pCommd->send[j].preset==0){
-#if DEBUG_CMD
-						XM_D("ret_cmd:recv len 0x%02x\r\n",pCommd->send[j].len);
-#endif
-						if(pCommd->send[j].len<=8){ 
-							nByteOffset=pCommd->send[j].offset/8;
-							nBitOffset =7-pCommd->send[j].offset%8;
-							nMask=(0xff>>(8-pCommd->send[j].len))<<nBitOffset;
-							nValue=nMask & xm.XM_Status_Buffer[sizeof(MessageHead)+nByteOffset];
-							nValue>>=nBitOffset;
-#if DEBUG_CMD
-							XM_D("ret_cmd:Offset 0x%02x\r\n",nBitOffset);	
-							XM_D("ret_cmd:Byte 0x%02x\r\n",nByteOffset);
-							XM_D("ret_cmd:nMask 0x%02x\r\n",nMask);
-							XM_D("ret_cmd:nValue 0x%02x\r\n",nValue);
-#endif
-							nBitOffset =7-pCommd->recv[j].offset%8;
-							nByteOffset=pCommd->recv[j].offset/8;
-							nMask=(0xff>>(8-pCommd->recv[j].len))<<nBitOffset;
-							nValue<<=nBitOffset;
-#if DEBUG_CMD
-							XM_D("ret_cmd:Offset 0x%02x\r\n",nBitOffset);	
-							XM_D("ret_cmd:Byte 0x%02x\r\n",nByteOffset);
-							XM_D("ret_cmd:nMask 0x%02x\r\n",nMask);
-							XM_D("ret_cmd:nValue 0x%02x\r\n",nValue);
-#endif
-							sendbuf[nByteOffset] &=~nMask;
-							sendbuf[nByteOffset] |=nValue;
-#if DEBUG_CMD
-							XM_D("ret_cmd:status 0x%02x\r\n",sendbuf[nByteOffset]);
-#endif
-						}else{
-							nValue=pCommd->send[j].len/8;
-#if DEBUG_CMD
-							XM_D("ret_cmd:buf len %d offset %d\r\n",pCommd->send[j].len,pCommd->send[j].offset); 
-							XM_D("ret_cmd:recv en %d offset %d\r\n",pCommd->recv[j].len,pCommd->recv[j].offset);
-							XM_D("ret_cmd:buf Offset 0x%02x\r\n",(pCommd->send[j].offset+1-pCommd->send[j].len)/8);	
-							XM_D("ret_cmd:recv Offset 0x%02x\r\n",(pCommd->recv[j].offset+1-pCommd->recv[j].len)/8);
-#endif
-							memcpy(&sendbuf[(pCommd->recv[j].offset+1-pCommd->recv[j].len)/8],&xm.XM_Status_Buffer[sizeof(MessageHead)+(pCommd->send[j].offset+1-pCommd->send[j].len)/8],nValue);
-#if DEBUG_CMD
-							printf_buf("ret_cmd status",(uchar *)sendbuf,pCommd->send[j].len/8);
-#endif
-						}
-					}
-				}
-				
-			}else{
-				memcpy(xm.XM_Status_Buffer+sizeof(MessageHead),sendbuf,nLen);
-			}
-			nRecv=Parse_Send(xm.XM_Frame_Buffer,xm.XM_Status_Buffer,sizeof(MessageHead)+nLen,xm.xm_addres_2,xm.xm_addres_1,xm.xm_addres_3,xm.xm_addres_4,xm.xm_addres_5,xm.xm_addres_count,xm.xm_addres_all,xm.xm_addres_type,xm.xm_addres_struct,xm.xm_encryption_type,xm.xm_crc_type,1,0,0,0,0,0);
-	#if DEBUG_SCOKET
-			printf_buf("ret_cmd send",xm.XM_Frame_Buffer,nRecv);
-	#endif
-			break;
-		}
-	}
-	*len=0;
-	if(nRecv){
-		retstr=(char *)malloc(nRecv+1);
-		memcpy(retstr,xm.XM_Frame_Buffer,nRecv);
-		retstr[nRecv]='\0';
-		*len=nRecv;
-	}
-	return retstr;
-}
-
-char * xm_send(char *psend){
-	return xm_send_index(0,psend,strlen(psend));
-}
-
-char * xm_send_index(int index,char *psend,int sendlen){
-	XM_NODE *pnode=NULL;
-	XM_PROTOCOL *pxm=NULL;	
-	char *strRet=(char *)malloc(XM_MAX_BUF);
-	XmSetLog("send",xm_sendid++);
-	if(xm_exited){
-		XM_E("ERROR send:lib is exit %d\r\n",xm_exited);		
-		XM_E("ERROR node:ret fail %d\r\n",XM_ERROR_VAIL);
-		goto exit_send;
-	}
-	
-	if(!xm_inited){
-		XM_E("ERROR send:lib not init %d\r\n",xm_exited);
-		XM_E("ERROR node:ret fail %d\r\n",XM_ERROR_VAIL);
-		goto exit_send;
-	}
-	
-	if(psend==NULL){
-		XM_E("ERROR send:cmd buf is null %p\r\n",psend);
-		XM_E("ERROR node:ret fail %d\r\n",XM_ERROR_VAIL);
-		goto exit_send;
-	}
-
-	if(sendlen<=XM_AT_MIN){
-		XM_E("ERROR send:cmd len error %d %s\r\n",sendlen,psend);
-		XM_E("ERROR node:ret fail %d\r\n",XM_ERROR_VAIL);
-		goto exit_send;
-	}
-
-	if(index<0){
-		XM_E("ERROR send:socket index error %d\r\n",index);
-		XM_E("ERROR node:ret fail %d\r\n",XM_ERROR_VAIL);
-		goto exit_send;
-	}
-	
-#if DEBUG_RS
-	XM_D("send:enter index %d %s\r\n",index,psend);
-#endif
-	
-	pnode=client_new_node(index,psend,sendlen,&xm_exited);
-	if(pnode==NULL){
-		XM_E("ERROR send:index get fail\r\n");
-		XM_E("ERROR node:ret fail %d\r\n",XM_ERROR_NODE);
-		goto exit_send;
-	}	
-	pxm=client_get_client(index);
-	if(pxm==NULL){
-		XM_E("ERROR send:socket index get fail\r\n");
-		XM_E("ERROR node:ret fail %d\r\n",XM_ERROR_INDEX);
-		pnode->errorid=XM_ERROR_INDEX;
-		goto exit_send;
-	}	
-	pxm->node_count++;
-	if(pxm->node_count>g_xm_max_wait_node){
-		pxm->node_count--;
-		XM_E("ERROR send:socket node full\r\n");
-		XM_E("ERROR node:ret fail %d\r\n",XM_ERROR_MAX_CMD_IN_ONE_SOCKET);
-		pnode->errorid=XM_ERROR_MAX_CMD_IN_ONE_SOCKET;
-		goto exit_send;
-	}	
-	while(!xm_exited){		
-#if DEBUG_THREAD
-		XM_D("send:lock node %d index %d socket %d\r\n",pnode->id,pxm->xm_index,pxm->xm_socket_client);
-#endif
-		pthread_mutex_lock(&pxm->mutex);
-		if(pxm->xm_exit || pxm->xm_socket_client==-1){
-			pnode->index=-1;
-			pnode->sync.timeout=0;
-#if DEBUG_THREAD
-			XM_D("send:xm_exit unlock node %d index %d socket %d\r\n",pnode->id,pxm->xm_index,pxm->xm_socket_client);
-#endif
-			pthread_mutex_unlock(&pxm->mutex);
-			XM_E("ERROR send:socket is exit\r\n");
-			XM_E("ERROR node:ret fail %d\r\n",XM_ERROR_SOCKET_EXIT);
-			pnode->errorid=XM_ERROR_SOCKET_EXIT;
-			pxm->node_count--;
-			goto exit_send;
-		}else if(pxm->node==NULL){
-			break;
-		}
-#if DEBUG_THREAD
-		XM_D("send:clean unlock node %d index %d socket %d\r\n",pnode->id,pxm->xm_index,pxm->xm_socket_client);
-#endif
-		pthread_mutex_unlock(&pxm->mutex);
-		XM_E("ERROR send:node %d index %d socket %d wait  node clean\r\n",pnode->id,pxm->xm_index,pxm->xm_socket_client);
-		sleep(1);
-	}
-	if(xm_exited || pxm->xm_exit){
-		XM_E("ERROR send:socket is %s,lib is %s\r\n",pxm->xm_exit?"exit":"run",xm_exited?"exit":"run");
-#if DEBUG_THREAD
-		XM_D("send:exited unlock node %d index %d socket %d\r\n",pnode->id,pxm->xm_index,pxm->xm_socket_client);
-#endif
-		pthread_mutex_unlock(&pxm->mutex);
-		XM_E("ERROR node:ret fail %d\r\n",XM_ERROR_SOCKET_EXIT);
-		pnode->errorid=XM_ERROR_SOCKET_EXIT;
-		pxm->node_count--;
-		goto exit_send;
-	}
-	if(strRet!=NULL){
-#if DEBUG_THREAD
-		XM_D("send:enter node lock node %d index %d socket %d\r\n",pnode->id,pnode->index,pxm->xm_socket_client);
-#endif
-		xm_wait_lock((XM_SYNC *)pnode);
-		memset(strRet,0,XM_MAX_BUF);
-		pnode->atbuf=psend;
-		pnode->atlen=sendlen;
-		send_data(pxm,pnode);
-#if DEBUG_CMD
-		XM_D("send:%d ret %d\r\n",pnode->id,pnode->errorid);
-#endif
-		strncpy(strRet,pnode->xm_at.XM_At_Ret,XM_MAX_BUF);
-#if DEBUG_CMD
-		printf_buf("send",(uchar *)strRet,strlen(strRet));
-#endif	
-#if DEBUG_THREAD
-		XM_D("send:exit unlock socket %d node %d\r\n",pxm->xm_socket_client,pnode->id);
-#endif	
-		pnode->errorid=0;
-		pnode->sync.timeout=0;
-		pnode->xm_cmd=NULL;
-#if DEBUG_THREAD
-		XM_D("send:enter node unlock node %d index %d socket %d\r\n",pnode->id,pnode->index,pxm->xm_socket_client);
-#endif
-		xm_wait_unlock((XM_SYNC *)pnode);
-	}else{
-		XM_E("ERROR send:strRet malloc fail\r\n");
-		XM_E("ERROR node:ret fail %d\r\n",XM_ERROR_MALLOC);
-		pnode->errorid=XM_ERROR_MALLOC;
-#if DEBUG_THREAD
-		XM_D("send:strRet unlock node %d index %d socket %d\r\n",pnode->id,pxm->xm_index,pxm->xm_socket_client);
-#endif
-		pthread_mutex_unlock(&pxm->mutex);
-	}
-	pnode->index=-1;
-	pxm->node_count--;
-	//xm_wait_destroy((XM_SYNC *)pnode);
-exit_send:
-	XmDelLog();
-	if(pnode && strRet && pnode->errorid!=XM_SUCCESS){
-		snprintf(strRet,XM_MAX_BUF,"AT+ERROR=%d",pnode->errorid);
-	}
-	return strRet;
 }
 
 char * xm_get_version(void){

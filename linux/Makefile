@@ -14,7 +14,7 @@ include $(ROOT)/rules.mk
 
 BINNAME = main
 MAIN_OBJS = main.o
-MAIN_SRC = $(MAIN_OBJS:%.o=%.c)
+MAIN_SRC = $(MAIN_OBJS:%.o=%.$(CODEEXT))
 
 
 MAINLDFLAGS = -L$(OBJDIR) -l$(TARGET)
@@ -34,7 +34,7 @@ SUBOBJ :
 $(BINNAME) :
 ifeq ($(MAIN_SRC),$(wildcard $(MAIN_SRC)))	
 	$(AT)echo "[cc] $(MAIN_SRC)"	
-	$(AT)$(CCACHE) $(CC)  $(MAIN_SRC) -o $@ $(MAINLDFLAGS) $(CFLAGS) $(LDFLAGS)	
+	$(AT)$(CCACHE) $(CC)  $(MAIN_SRC) -o $@ $(MAINLDFLAGS) $(CFLAGS) $(LDFLAGS)	-I ../src/include
 endif
 	$(AT)echo "Build SUCCESS" 
 	
@@ -42,4 +42,4 @@ endif
 clean:
 #	$(AT)for n in $(SUBDIRS); do $(MAKE)  $(SILENT) -C $$n clean; done
 	$(AT)$(MAKE) $(SILENT) -C $(OBJDIR) clean	
-#	@-rm -rf $(BINNAME) *.so *.a ../obj ../libs log	
+	@-rm -rf $(BINNAME) *.so *.a 

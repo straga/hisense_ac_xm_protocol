@@ -118,7 +118,7 @@ static const unsigned int CRC32_04c11db7_Map[256]={
  */
 unsigned short do_crc16_1021(const void *msg, unsigned int len,unsigned short crc_reg) 
 {
-	const unsigned char *message = (char *)msg;
+	const unsigned char *message = (unsigned char *)msg;
 	crc_reg = ~crc_reg;
     if(message == (void*)0) return crc_reg;      
     while (len--) 
@@ -136,7 +136,7 @@ unsigned short do_crc16_1021(const void *msg, unsigned int len,unsigned short cr
 unsigned int do_crc32_04C11DB7(const void *msg, unsigned int len,unsigned int crc_reg) 
 {
  // unsigned int crc_reg = 0xffffffff; 
-    const unsigned char *message = (char *)msg;
+    const unsigned char *message = (unsigned char *)msg;
  	crc_reg = ~crc_reg;
     if(message == (void*)0) return crc_reg;
     while (len--) 

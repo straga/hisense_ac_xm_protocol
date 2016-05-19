@@ -12,7 +12,7 @@
 export CODEEXT TARGET ROOT SRC_ROOT OBJDIR
 
 #default use debug compile,user can change it`s value to 0
-debug ?= 1
+#debug ?= 1
 
 AR := ar
 RM := rm

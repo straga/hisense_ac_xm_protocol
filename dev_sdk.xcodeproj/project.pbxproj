@@ -1,0 +1,859 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		E7915F741CED6A7D00520AA1 /* joinlib */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = E7915F751CED6A7D00520AA1 /* Build configuration list for PBXAggregateTarget "joinlib" */;
+			buildPhases = (
+				E7915F781CED6A8100520AA1 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = joinlib;
+			productName = joinlib;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		E7915F231CED6A4600520AA1 /* AirCleanerControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915E801CED6A4600520AA1 /* AirCleanerControl.cpp */; };
+		E7915F241CED6A4600520AA1 /* AirCleanerLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915E821CED6A4600520AA1 /* AirCleanerLogic.cpp */; };
+		E7915F251CED6A4600520AA1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E7915E841CED6A4600520AA1 /* Makefile */; };
+		E7915F261CED6A4600520AA1 /* AirconditionControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915E861CED6A4600520AA1 /* AirconditionControl.cpp */; };
+		E7915F271CED6A4600520AA1 /* AirconditionLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915E881CED6A4600520AA1 /* AirconditionLogic.cpp */; };
+		E7915F281CED6A4600520AA1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E7915E8A1CED6A4600520AA1 /* Makefile */; };
+		E7915F291CED6A4600520AA1 /* AirFanControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915E8C1CED6A4600520AA1 /* AirFanControl.cpp */; };
+		E7915F2A1CED6A4600520AA1 /* AirFanLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915E8E1CED6A4600520AA1 /* AirFanLogic.cpp */; };
+		E7915F2B1CED6A4600520AA1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E7915E901CED6A4600520AA1 /* Makefile */; };
+		E7915F2C1CED6A4600520AA1 /* DeviceControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915E921CED6A4600520AA1 /* DeviceControl.cpp */; };
+		E7915F2D1CED6A4600520AA1 /* DeviceLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915E931CED6A4600520AA1 /* DeviceLogic.cpp */; };
+		E7915F2E1CED6A4600520AA1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E7915E951CED6A4600520AA1 /* Makefile */; };
+		E7915F2F1CED6A4600520AA1 /* ProtocolNative.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915E961CED6A4600520AA1 /* ProtocolNative.cpp */; };
+		E7915F301CED6A4600520AA1 /* CByte.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915E9A1CED6A4600520AA1 /* CByte.cpp */; };
+		E7915F321CED6A4600520AA1 /* IOTConstants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915E9C1CED6A4600520AA1 /* IOTConstants.cpp */; };
+		E7915F331CED6A4600520AA1 /* IOTUtil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915E9D1CED6A4600520AA1 /* IOTUtil.cpp */; };
+		E7915F341CED6A4600520AA1 /* JSONObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915E9E1CED6A4600520AA1 /* JSONObject.cpp */; };
+		E7915F351CED6A4600520AA1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E7915E9F1CED6A4600520AA1 /* Makefile */; };
+		E7915F3C1CED6A4600520AA1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E7915EB21CED6A4600520AA1 /* Makefile */; };
+		E7915F3D1CED6A4600520AA1 /* OvenControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915EB31CED6A4600520AA1 /* OvenControl.cpp */; };
+		E7915F3E1CED6A4600520AA1 /* OvenLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915EB51CED6A4600520AA1 /* OvenLogic.cpp */; };
+		E7915F3F1CED6A4600520AA1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E7915EB81CED6A4600520AA1 /* Makefile */; };
+		E7915F401CED6A4600520AA1 /* SeedMachineControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915EB91CED6A4600520AA1 /* SeedMachineControl.cpp */; };
+		E7915F411CED6A4600520AA1 /* SeedMachineControlLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915EBB1CED6A4600520AA1 /* SeedMachineControlLogic.cpp */; };
+		E7915F421CED6A4600520AA1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E7915EBE1CED6A4600520AA1 /* Makefile */; };
+		E7915F431CED6A4600520AA1 /* SensorsFourInOneControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915EBF1CED6A4600520AA1 /* SensorsFourInOneControl.cpp */; };
+		E7915F441CED6A4600520AA1 /* SensorsFourInOneLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915EC11CED6A4600520AA1 /* SensorsFourInOneLogic.cpp */; };
+		E7915F451CED6A4600520AA1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E7915EC41CED6A4600520AA1 /* Makefile */; };
+		E7915F461CED6A4600520AA1 /* SmartCurtainControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915EC51CED6A4600520AA1 /* SmartCurtainControl.cpp */; };
+		E7915F471CED6A4600520AA1 /* SmartCurtainLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915EC71CED6A4600520AA1 /* SmartCurtainLogic.cpp */; };
+		E7915F481CED6A4600520AA1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E7915ECA1CED6A4600520AA1 /* Makefile */; };
+		E7915F491CED6A4600520AA1 /* SmartLightControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915ECB1CED6A4600520AA1 /* SmartLightControl.cpp */; };
+		E7915F4A1CED6A4600520AA1 /* SmartLightLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915ECD1CED6A4600520AA1 /* SmartLightLogic.cpp */; };
+		E7915F4B1CED6A4600520AA1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E7915ED01CED6A4600520AA1 /* Makefile */; };
+		E7915F4C1CED6A4600520AA1 /* VoltameterControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915ED11CED6A4600520AA1 /* VoltameterControl.cpp */; };
+		E7915F4D1CED6A4600520AA1 /* VoltameterLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915ED31CED6A4600520AA1 /* VoltameterLogic.cpp */; };
+		E7915F4E1CED6A4600520AA1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E7915ED61CED6A4600520AA1 /* Makefile */; };
+		E7915F4F1CED6A4600520AA1 /* Qca4004Cmd.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915ED71CED6A4600520AA1 /* Qca4004Cmd.cpp */; };
+		E7915F501CED6A4600520AA1 /* WifiControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915ED91CED6A4600520AA1 /* WifiControl.cpp */; };
+		E7915F521CED6A4600520AA1 /* air-cleansing_msg.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915EE31CED6A4600520AA1 /* air-cleansing_msg.c */; };
+		E7915F531CED6A4600520AA1 /* air-condition_msg.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915EE51CED6A4600520AA1 /* air-condition_msg.c */; };
+		E7915F541CED6A4600520AA1 /* air-dehumidifier_msg.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915EE71CED6A4600520AA1 /* air-dehumidifier_msg.c */; };
+		E7915F551CED6A4600520AA1 /* air-exchang_msg.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915EE91CED6A4600520AA1 /* air-exchang_msg.c */; };
+		E7915F561CED6A4600520AA1 /* cJSON.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915EEB1CED6A4600520AA1 /* cJSON.c */; };
+		E7915F581CED6A4600520AA1 /* cmdanalysis.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915EEF1CED6A4600520AA1 /* cmdanalysis.c */; };
+		E7915F591CED6A4600520AA1 /* cmdprintf.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915EF11CED6A4600520AA1 /* cmdprintf.c */; };
+		E7915F5A1CED6A4600520AA1 /* command.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915EFA1CED6A4600520AA1 /* command.c */; };
+		E7915F5B1CED6A4600520AA1 /* crc.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915EFD1CED6A4600520AA1 /* crc.c */; };
+		E7915F5C1CED6A4600520AA1 /* dingchenv0_9.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915EFE1CED6A4600520AA1 /* dingchenv0_9.c */; };
+		E7915F5D1CED6A4600520AA1 /* drinkingfountain.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915EFF1CED6A4600520AA1 /* drinkingfountain.c */; };
+		E7915F5E1CED6A4600520AA1 /* Ft_gas_cooker.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915F001CED6A4600520AA1 /* Ft_gas_cooker.c */; };
+		E7915F5F1CED6A4600520AA1 /* heator.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915F011CED6A4600520AA1 /* heator.c */; };
+		E7915F601CED6A4600520AA1 /* hisense.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915F021CED6A4600520AA1 /* hisense.c */; };
+		E7915F611CED6A4600520AA1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E7915F051CED6A4600520AA1 /* Makefile */; };
+		E7915F621CED6A4600520AA1 /* message.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915F061CED6A4600520AA1 /* message.c */; };
+		E7915F631CED6A4600520AA1 /* parse_js_cmd.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915F081CED6A4600520AA1 /* parse_js_cmd.c */; };
+		E7915F641CED6A4600520AA1 /* protocol.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915F091CED6A4600520AA1 /* protocol.c */; };
+		E7915F661CED6A4600520AA1 /* seed.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915F0D1CED6A4600520AA1 /* seed.c */; };
+		E7915F681CED6A4600520AA1 /* Senser.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915F101CED6A4600520AA1 /* Senser.c */; };
+		E7915F6A1CED6A4600520AA1 /* smartCurtain.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915F131CED6A4600520AA1 /* smartCurtain.c */; };
+		E7915F6B1CED6A4600520AA1 /* smartLight.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915F141CED6A4600520AA1 /* smartLight.c */; };
+		E7915F6C1CED6A4600520AA1 /* vanword_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915F171CED6A4600520AA1 /* vanword_parse.c */; };
+		E7915F6D1CED6A4600520AA1 /* Water-heater.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915F181CED6A4600520AA1 /* Water-heater.c */; };
+		E7915F6E1CED6A4600520AA1 /* xinglianfeng_oven.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915F191CED6A4600520AA1 /* xinglianfeng_oven.c */; };
+		E7915F6F1CED6A4600520AA1 /* xlf_crc.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915F1A1CED6A4600520AA1 /* xlf_crc.c */; };
+		E7915F701CED6A4600520AA1 /* xlfVoltameter.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915F1C1CED6A4600520AA1 /* xlfVoltameter.c */; };
+		E7915F711CED6A4600520AA1 /* xmlog.c in Sources */ = {isa = PBXBuildFile; fileRef = E7915F1E1CED6A4600520AA1 /* xmlog.c */; };
+		E7915F721CED6A4600520AA1 /* XlfDeviceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915F201CED6A4600520AA1 /* XlfDeviceManager.cpp */; };
+		E7915F731CED6A4600520AA1 /* XlfDeviceWrapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915F221CED6A4600520AA1 /* XlfDeviceWrapper.cpp */; };
+		E7915F7F1CED6ABE00520AA1 /* DehumidifierControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915F7A1CED6ABE00520AA1 /* DehumidifierControl.cpp */; };
+		E7915F801CED6ABE00520AA1 /* DehumidifierLogic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7915F7C1CED6ABE00520AA1 /* DehumidifierLogic.cpp */; };
+		E7915F811CED6ABE00520AA1 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = E7915F7E1CED6ABE00520AA1 /* Makefile */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E7915E6F1CED69D200520AA1 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		E7915E711CED69D200520AA1 /* libdev_sdk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libdev_sdk.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7915E801CED6A4600520AA1 /* AirCleanerControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirCleanerControl.cpp; sourceTree = "<group>"; };
+		E7915E811CED6A4600520AA1 /* AirCleanerControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirCleanerControl.h; sourceTree = "<group>"; };
+		E7915E821CED6A4600520AA1 /* AirCleanerLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirCleanerLogic.cpp; sourceTree = "<group>"; };
+		E7915E831CED6A4600520AA1 /* AirCleanerLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirCleanerLogic.h; sourceTree = "<group>"; };
+		E7915E841CED6A4600520AA1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		E7915E861CED6A4600520AA1 /* AirconditionControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirconditionControl.cpp; sourceTree = "<group>"; };
+		E7915E871CED6A4600520AA1 /* AirconditionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirconditionControl.h; sourceTree = "<group>"; };
+		E7915E881CED6A4600520AA1 /* AirconditionLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirconditionLogic.cpp; sourceTree = "<group>"; };
+		E7915E891CED6A4600520AA1 /* AirconditionLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirconditionLogic.h; sourceTree = "<group>"; };
+		E7915E8A1CED6A4600520AA1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		E7915E8C1CED6A4600520AA1 /* AirFanControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirFanControl.cpp; sourceTree = "<group>"; };
+		E7915E8D1CED6A4600520AA1 /* AirFanControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirFanControl.h; sourceTree = "<group>"; };
+		E7915E8E1CED6A4600520AA1 /* AirFanLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AirFanLogic.cpp; sourceTree = "<group>"; };
+		E7915E8F1CED6A4600520AA1 /* AirFanLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirFanLogic.h; sourceTree = "<group>"; };
+		E7915E901CED6A4600520AA1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		E7915E921CED6A4600520AA1 /* DeviceControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DeviceControl.cpp; sourceTree = "<group>"; };
+		E7915E931CED6A4600520AA1 /* DeviceLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DeviceLogic.cpp; sourceTree = "<group>"; };
+		E7915E941CED6A4600520AA1 /* IProtocolNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IProtocolNative.h; sourceTree = "<group>"; };
+		E7915E951CED6A4600520AA1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		E7915E961CED6A4600520AA1 /* ProtocolNative.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ProtocolNative.cpp; sourceTree = "<group>"; };
+		E7915E971CED6A4600520AA1 /* ProtocolNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolNative.h; sourceTree = "<group>"; };
+		E7915E991CED6A4600520AA1 /* a.out */ = {isa = PBXFileReference; lastKnownFileType = file; path = a.out; sourceTree = "<group>"; };
+		E7915E9A1CED6A4600520AA1 /* CByte.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CByte.cpp; sourceTree = "<group>"; };
+		E7915E9C1CED6A4600520AA1 /* IOTConstants.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOTConstants.cpp; sourceTree = "<group>"; };
+		E7915E9D1CED6A4600520AA1 /* IOTUtil.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOTUtil.cpp; sourceTree = "<group>"; };
+		E7915E9E1CED6A4600520AA1 /* JSONObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JSONObject.cpp; sourceTree = "<group>"; };
+		E7915E9F1CED6A4600520AA1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		E7915EA71CED6A4600520AA1 /* CByte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CByte.h; sourceTree = "<group>"; };
+		E7915EA81CED6A4600520AA1 /* DeviceControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceControl.h; sourceTree = "<group>"; };
+		E7915EA91CED6A4600520AA1 /* DeviceLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceLogic.h; sourceTree = "<group>"; };
+		E7915EAA1CED6A4600520AA1 /* IOTConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOTConstants.h; sourceTree = "<group>"; };
+		E7915EAB1CED6A4600520AA1 /* IOTUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOTUtil.h; sourceTree = "<group>"; };
+		E7915EB21CED6A4600520AA1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		E7915EB31CED6A4600520AA1 /* OvenControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OvenControl.cpp; sourceTree = "<group>"; };
+		E7915EB41CED6A4600520AA1 /* OvenControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OvenControl.h; sourceTree = "<group>"; };
+		E7915EB51CED6A4600520AA1 /* OvenLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OvenLogic.cpp; sourceTree = "<group>"; };
+		E7915EB61CED6A4600520AA1 /* OvenLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OvenLogic.h; sourceTree = "<group>"; };
+		E7915EB81CED6A4600520AA1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		E7915EB91CED6A4600520AA1 /* SeedMachineControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SeedMachineControl.cpp; sourceTree = "<group>"; };
+		E7915EBA1CED6A4600520AA1 /* SeedMachineControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeedMachineControl.h; sourceTree = "<group>"; };
+		E7915EBB1CED6A4600520AA1 /* SeedMachineControlLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SeedMachineControlLogic.cpp; sourceTree = "<group>"; };
+		E7915EBC1CED6A4600520AA1 /* SeedMachineControlLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeedMachineControlLogic.h; sourceTree = "<group>"; };
+		E7915EBE1CED6A4600520AA1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		E7915EBF1CED6A4600520AA1 /* SensorsFourInOneControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SensorsFourInOneControl.cpp; sourceTree = "<group>"; };
+		E7915EC01CED6A4600520AA1 /* SensorsFourInOneControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorsFourInOneControl.h; sourceTree = "<group>"; };
+		E7915EC11CED6A4600520AA1 /* SensorsFourInOneLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SensorsFourInOneLogic.cpp; sourceTree = "<group>"; };
+		E7915EC21CED6A4600520AA1 /* SensorsFourInOneLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorsFourInOneLogic.h; sourceTree = "<group>"; };
+		E7915EC41CED6A4600520AA1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		E7915EC51CED6A4600520AA1 /* SmartCurtainControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SmartCurtainControl.cpp; sourceTree = "<group>"; };
+		E7915EC61CED6A4600520AA1 /* SmartCurtainControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartCurtainControl.h; sourceTree = "<group>"; };
+		E7915EC71CED6A4600520AA1 /* SmartCurtainLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SmartCurtainLogic.cpp; sourceTree = "<group>"; };
+		E7915EC81CED6A4600520AA1 /* SmartCurtainLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartCurtainLogic.h; sourceTree = "<group>"; };
+		E7915ECA1CED6A4600520AA1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		E7915ECB1CED6A4600520AA1 /* SmartLightControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SmartLightControl.cpp; sourceTree = "<group>"; };
+		E7915ECC1CED6A4600520AA1 /* SmartLightControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartLightControl.h; sourceTree = "<group>"; };
+		E7915ECD1CED6A4600520AA1 /* SmartLightLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SmartLightLogic.cpp; sourceTree = "<group>"; };
+		E7915ECE1CED6A4600520AA1 /* SmartLightLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmartLightLogic.h; sourceTree = "<group>"; };
+		E7915ED01CED6A4600520AA1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		E7915ED11CED6A4600520AA1 /* VoltameterControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VoltameterControl.cpp; sourceTree = "<group>"; };
+		E7915ED21CED6A4600520AA1 /* VoltameterControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoltameterControl.h; sourceTree = "<group>"; };
+		E7915ED31CED6A4600520AA1 /* VoltameterLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VoltameterLogic.cpp; sourceTree = "<group>"; };
+		E7915ED41CED6A4600520AA1 /* VoltameterLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoltameterLogic.h; sourceTree = "<group>"; };
+		E7915ED61CED6A4600520AA1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		E7915ED71CED6A4600520AA1 /* Qca4004Cmd.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Qca4004Cmd.cpp; sourceTree = "<group>"; };
+		E7915ED81CED6A4600520AA1 /* Qca4004Cmd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Qca4004Cmd.h; sourceTree = "<group>"; };
+		E7915ED91CED6A4600520AA1 /* WifiControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WifiControl.cpp; sourceTree = "<group>"; };
+		E7915EDA1CED6A4600520AA1 /* WifiControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiControl.h; sourceTree = "<group>"; };
+		E7915EDC1CED6A4600520AA1 /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cJSON.h; sourceTree = "<group>"; };
+		E7915EDD1CED6A4600520AA1 /* DevicesControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevicesControl.h; sourceTree = "<group>"; };
+		E7915EDE1CED6A4600520AA1 /* JSONObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONObject.h; sourceTree = "<group>"; };
+		E7915EDF1CED6A4600520AA1 /* XlfDeviceInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XlfDeviceInfo.h; sourceTree = "<group>"; };
+		E7915EE01CED6A4600520AA1 /* XlfDeviceWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XlfDeviceWrapper.h; sourceTree = "<group>"; };
+		E7915EE31CED6A4600520AA1 /* air-cleansing_msg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "air-cleansing_msg.c"; sourceTree = "<group>"; };
+		E7915EE41CED6A4600520AA1 /* air-cleansing_msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "air-cleansing_msg.h"; sourceTree = "<group>"; };
+		E7915EE51CED6A4600520AA1 /* air-condition_msg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "air-condition_msg.c"; sourceTree = "<group>"; };
+		E7915EE61CED6A4600520AA1 /* air-condition_msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "air-condition_msg.h"; sourceTree = "<group>"; };
+		E7915EE71CED6A4600520AA1 /* air-dehumidifier_msg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "air-dehumidifier_msg.c"; sourceTree = "<group>"; };
+		E7915EE81CED6A4600520AA1 /* air-dehumidifier_msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "air-dehumidifier_msg.h"; sourceTree = "<group>"; };
+		E7915EE91CED6A4600520AA1 /* air-exchang_msg.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "air-exchang_msg.c"; sourceTree = "<group>"; };
+		E7915EEA1CED6A4600520AA1 /* air-exchang_msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "air-exchang_msg.h"; sourceTree = "<group>"; };
+		E7915EEB1CED6A4600520AA1 /* cJSON.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cJSON.c; sourceTree = "<group>"; };
+		E7915EEC1CED6A4600520AA1 /* cJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cJSON.h; sourceTree = "<group>"; };
+		E7915EEE1CED6A4600520AA1 /* client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = client.h; sourceTree = "<group>"; };
+		E7915EEF1CED6A4600520AA1 /* cmdanalysis.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cmdanalysis.c; sourceTree = "<group>"; };
+		E7915EF01CED6A4600520AA1 /* cmdanalysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmdanalysis.h; sourceTree = "<group>"; };
+		E7915EF11CED6A4600520AA1 /* cmdprintf.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cmdprintf.c; sourceTree = "<group>"; };
+		E7915EF21CED6A4600520AA1 /* com_qd_android_livehome_socket_LocalSoketNative.ca */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = com_qd_android_livehome_socket_LocalSoketNative.ca; sourceTree = "<group>"; };
+		E7915EF31CED6A4600520AA1 /* com_qd_android_livehome_socket_LocalSoketNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = com_qd_android_livehome_socket_LocalSoketNative.h; sourceTree = "<group>"; };
+		E7915EF41CED6A4600520AA1 /* com_sd_android_livehome_socket_LocalSoketNative.ca */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = com_sd_android_livehome_socket_LocalSoketNative.ca; sourceTree = "<group>"; };
+		E7915EF51CED6A4600520AA1 /* com_sd_android_livehome_socket_LocalSoketNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = com_sd_android_livehome_socket_LocalSoketNative.h; sourceTree = "<group>"; };
+		E7915EF61CED6A4600520AA1 /* com_te_android_smarthome_socket_LocalSoketNative.ca */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = com_te_android_smarthome_socket_LocalSoketNative.ca; sourceTree = "<group>"; };
+		E7915EF71CED6A4600520AA1 /* com_te_android_smarthome_socket_LocalSoketNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = com_te_android_smarthome_socket_LocalSoketNative.h; sourceTree = "<group>"; };
+		E7915EF81CED6A4600520AA1 /* com_xinlianfeng_android_livehome_hisense_ProtocolNative.ca */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = com_xinlianfeng_android_livehome_hisense_ProtocolNative.ca; sourceTree = "<group>"; };
+		E7915EF91CED6A4600520AA1 /* com_xinlianfeng_android_livehome_hisense_ProtocolNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = com_xinlianfeng_android_livehome_hisense_ProtocolNative.h; sourceTree = "<group>"; };
+		E7915EFA1CED6A4600520AA1 /* command.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = command.c; sourceTree = "<group>"; };
+		E7915EFB1CED6A4600520AA1 /* command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = command.h; sourceTree = "<group>"; };
+		E7915EFC1CED6A4600520AA1 /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
+		E7915EFD1CED6A4600520AA1 /* crc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = crc.c; sourceTree = "<group>"; };
+		E7915EFE1CED6A4600520AA1 /* dingchenv0_9.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dingchenv0_9.c; sourceTree = "<group>"; };
+		E7915EFF1CED6A4600520AA1 /* drinkingfountain.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = drinkingfountain.c; sourceTree = "<group>"; };
+		E7915F001CED6A4600520AA1 /* Ft_gas_cooker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Ft_gas_cooker.c; sourceTree = "<group>"; };
+		E7915F011CED6A4600520AA1 /* heator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = heator.c; sourceTree = "<group>"; };
+		E7915F021CED6A4600520AA1 /* hisense.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hisense.c; sourceTree = "<group>"; };
+		E7915F031CED6A4600520AA1 /* hisense.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hisense.h; sourceTree = "<group>"; };
+		E7915F041CED6A4600520AA1 /* js_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = js_type.h; sourceTree = "<group>"; };
+		E7915F051CED6A4600520AA1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		E7915F061CED6A4600520AA1 /* message.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = message.c; sourceTree = "<group>"; };
+		E7915F071CED6A4600520AA1 /* message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = message.h; sourceTree = "<group>"; };
+		E7915F081CED6A4600520AA1 /* parse_js_cmd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parse_js_cmd.c; sourceTree = "<group>"; };
+		E7915F091CED6A4600520AA1 /* protocol.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = protocol.c; sourceTree = "<group>"; };
+		E7915F0A1CED6A4600520AA1 /* protocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = protocol.h; sourceTree = "<group>"; };
+		E7915F0C1CED6A4600520AA1 /* recv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = recv.h; sourceTree = "<group>"; };
+		E7915F0D1CED6A4600520AA1 /* seed.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = seed.c; sourceTree = "<group>"; };
+		E7915F0F1CED6A4600520AA1 /* send.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = send.h; sourceTree = "<group>"; };
+		E7915F101CED6A4600520AA1 /* Senser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Senser.c; sourceTree = "<group>"; };
+		E7915F121CED6A4600520AA1 /* server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = server.h; sourceTree = "<group>"; };
+		E7915F131CED6A4600520AA1 /* smartCurtain.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = smartCurtain.c; sourceTree = "<group>"; };
+		E7915F141CED6A4600520AA1 /* smartLight.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = smartLight.c; sourceTree = "<group>"; };
+		E7915F151CED6A4600520AA1 /* vanword.ca */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vanword.ca; sourceTree = "<group>"; };
+		E7915F161CED6A4600520AA1 /* vanword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vanword.h; sourceTree = "<group>"; };
+		E7915F171CED6A4600520AA1 /* vanword_parse.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = vanword_parse.c; sourceTree = "<group>"; };
+		E7915F181CED6A4600520AA1 /* Water-heater.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "Water-heater.c"; sourceTree = "<group>"; };
+		E7915F191CED6A4600520AA1 /* xinglianfeng_oven.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xinglianfeng_oven.c; sourceTree = "<group>"; };
+		E7915F1A1CED6A4600520AA1 /* xlf_crc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xlf_crc.c; sourceTree = "<group>"; };
+		E7915F1B1CED6A4600520AA1 /* xlf_crc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xlf_crc.h; sourceTree = "<group>"; };
+		E7915F1C1CED6A4600520AA1 /* xlfVoltameter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xlfVoltameter.c; sourceTree = "<group>"; };
+		E7915F1D1CED6A4600520AA1 /* xm_type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xm_type.h; sourceTree = "<group>"; };
+		E7915F1E1CED6A4600520AA1 /* xmlog.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xmlog.c; sourceTree = "<group>"; };
+		E7915F1F1CED6A4600520AA1 /* xmlog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xmlog.h; sourceTree = "<group>"; };
+		E7915F201CED6A4600520AA1 /* XlfDeviceManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XlfDeviceManager.cpp; sourceTree = "<group>"; };
+		E7915F211CED6A4600520AA1 /* XlfDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XlfDeviceManager.h; sourceTree = "<group>"; };
+		E7915F221CED6A4600520AA1 /* XlfDeviceWrapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XlfDeviceWrapper.cpp; sourceTree = "<group>"; };
+		E7915F7A1CED6ABE00520AA1 /* DehumidifierControl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DehumidifierControl.cpp; sourceTree = "<group>"; };
+		E7915F7B1CED6ABE00520AA1 /* DehumidifierControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DehumidifierControl.h; sourceTree = "<group>"; };
+		E7915F7C1CED6ABE00520AA1 /* DehumidifierLogic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DehumidifierLogic.cpp; sourceTree = "<group>"; };
+		E7915F7D1CED6ABE00520AA1 /* DehumidifierLogic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DehumidifierLogic.h; sourceTree = "<group>"; };
+		E7915F7E1CED6ABE00520AA1 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E7915E6E1CED69D200520AA1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E7915E681CED69D200520AA1 = {
+			isa = PBXGroup;
+			children = (
+				E7915E7D1CED6A4600520AA1 /* src */,
+				E7915E721CED69D200520AA1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E7915E721CED69D200520AA1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E7915E711CED69D200520AA1 /* libdev_sdk.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E7915E7D1CED6A4600520AA1 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				E7915E7E1CED6A4600520AA1 /* devices */,
+				E7915EDB1CED6A4600520AA1 /* include */,
+				E7915EE21CED6A4600520AA1 /* protocol */,
+				E7915F201CED6A4600520AA1 /* XlfDeviceManager.cpp */,
+				E7915F211CED6A4600520AA1 /* XlfDeviceManager.h */,
+				E7915F221CED6A4600520AA1 /* XlfDeviceWrapper.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		E7915E7E1CED6A4600520AA1 /* devices */ = {
+			isa = PBXGroup;
+			children = (
+				E7915F791CED6ABE00520AA1 /* dehumidifier */,
+				E7915E7F1CED6A4600520AA1 /* aircleaner */,
+				E7915E851CED6A4600520AA1 /* aircondition */,
+				E7915E8B1CED6A4600520AA1 /* airfan */,
+				E7915E911CED6A4600520AA1 /* base */,
+				E7915E981CED6A4600520AA1 /* common */,
+				E7915EA61CED6A4600520AA1 /* include */,
+				E7915EB11CED6A4600520AA1 /* oven */,
+				E7915EB71CED6A4600520AA1 /* seed */,
+				E7915EBD1CED6A4600520AA1 /* SensorsFourInOne */,
+				E7915EC31CED6A4600520AA1 /* SmartCurtain */,
+				E7915EC91CED6A4600520AA1 /* SmartLight */,
+				E7915ECF1CED6A4600520AA1 /* voltameter */,
+				E7915ED51CED6A4600520AA1 /* wifiControl */,
+			);
+			path = devices;
+			sourceTree = "<group>";
+		};
+		E7915E7F1CED6A4600520AA1 /* aircleaner */ = {
+			isa = PBXGroup;
+			children = (
+				E7915E801CED6A4600520AA1 /* AirCleanerControl.cpp */,
+				E7915E811CED6A4600520AA1 /* AirCleanerControl.h */,
+				E7915E821CED6A4600520AA1 /* AirCleanerLogic.cpp */,
+				E7915E831CED6A4600520AA1 /* AirCleanerLogic.h */,
+				E7915E841CED6A4600520AA1 /* Makefile */,
+			);
+			path = aircleaner;
+			sourceTree = "<group>";
+		};
+		E7915E851CED6A4600520AA1 /* aircondition */ = {
+			isa = PBXGroup;
+			children = (
+				E7915E861CED6A4600520AA1 /* AirconditionControl.cpp */,
+				E7915E871CED6A4600520AA1 /* AirconditionControl.h */,
+				E7915E881CED6A4600520AA1 /* AirconditionLogic.cpp */,
+				E7915E891CED6A4600520AA1 /* AirconditionLogic.h */,
+				E7915E8A1CED6A4600520AA1 /* Makefile */,
+			);
+			path = aircondition;
+			sourceTree = "<group>";
+		};
+		E7915E8B1CED6A4600520AA1 /* airfan */ = {
+			isa = PBXGroup;
+			children = (
+				E7915E8C1CED6A4600520AA1 /* AirFanControl.cpp */,
+				E7915E8D1CED6A4600520AA1 /* AirFanControl.h */,
+				E7915E8E1CED6A4600520AA1 /* AirFanLogic.cpp */,
+				E7915E8F1CED6A4600520AA1 /* AirFanLogic.h */,
+				E7915E901CED6A4600520AA1 /* Makefile */,
+			);
+			path = airfan;
+			sourceTree = "<group>";
+		};
+		E7915E911CED6A4600520AA1 /* base */ = {
+			isa = PBXGroup;
+			children = (
+				E7915E921CED6A4600520AA1 /* DeviceControl.cpp */,
+				E7915E931CED6A4600520AA1 /* DeviceLogic.cpp */,
+				E7915E941CED6A4600520AA1 /* IProtocolNative.h */,
+				E7915E951CED6A4600520AA1 /* Makefile */,
+				E7915E961CED6A4600520AA1 /* ProtocolNative.cpp */,
+				E7915E971CED6A4600520AA1 /* ProtocolNative.h */,
+			);
+			path = base;
+			sourceTree = "<group>";
+		};
+		E7915E981CED6A4600520AA1 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				E7915E991CED6A4600520AA1 /* a.out */,
+				E7915E9A1CED6A4600520AA1 /* CByte.cpp */,
+				E7915E9C1CED6A4600520AA1 /* IOTConstants.cpp */,
+				E7915E9D1CED6A4600520AA1 /* IOTUtil.cpp */,
+				E7915E9E1CED6A4600520AA1 /* JSONObject.cpp */,
+				E7915E9F1CED6A4600520AA1 /* Makefile */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		E7915EA61CED6A4600520AA1 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				E7915EA71CED6A4600520AA1 /* CByte.h */,
+				E7915EA81CED6A4600520AA1 /* DeviceControl.h */,
+				E7915EA91CED6A4600520AA1 /* DeviceLogic.h */,
+				E7915EAA1CED6A4600520AA1 /* IOTConstants.h */,
+				E7915EAB1CED6A4600520AA1 /* IOTUtil.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		E7915EB11CED6A4600520AA1 /* oven */ = {
+			isa = PBXGroup;
+			children = (
+				E7915EB21CED6A4600520AA1 /* Makefile */,
+				E7915EB31CED6A4600520AA1 /* OvenControl.cpp */,
+				E7915EB41CED6A4600520AA1 /* OvenControl.h */,
+				E7915EB51CED6A4600520AA1 /* OvenLogic.cpp */,
+				E7915EB61CED6A4600520AA1 /* OvenLogic.h */,
+			);
+			path = oven;
+			sourceTree = "<group>";
+		};
+		E7915EB71CED6A4600520AA1 /* seed */ = {
+			isa = PBXGroup;
+			children = (
+				E7915EB81CED6A4600520AA1 /* Makefile */,
+				E7915EB91CED6A4600520AA1 /* SeedMachineControl.cpp */,
+				E7915EBA1CED6A4600520AA1 /* SeedMachineControl.h */,
+				E7915EBB1CED6A4600520AA1 /* SeedMachineControlLogic.cpp */,
+				E7915EBC1CED6A4600520AA1 /* SeedMachineControlLogic.h */,
+			);
+			path = seed;
+			sourceTree = "<group>";
+		};
+		E7915EBD1CED6A4600520AA1 /* SensorsFourInOne */ = {
+			isa = PBXGroup;
+			children = (
+				E7915EBE1CED6A4600520AA1 /* Makefile */,
+				E7915EBF1CED6A4600520AA1 /* SensorsFourInOneControl.cpp */,
+				E7915EC01CED6A4600520AA1 /* SensorsFourInOneControl.h */,
+				E7915EC11CED6A4600520AA1 /* SensorsFourInOneLogic.cpp */,
+				E7915EC21CED6A4600520AA1 /* SensorsFourInOneLogic.h */,
+			);
+			path = SensorsFourInOne;
+			sourceTree = "<group>";
+		};
+		E7915EC31CED6A4600520AA1 /* SmartCurtain */ = {
+			isa = PBXGroup;
+			children = (
+				E7915EC41CED6A4600520AA1 /* Makefile */,
+				E7915EC51CED6A4600520AA1 /* SmartCurtainControl.cpp */,
+				E7915EC61CED6A4600520AA1 /* SmartCurtainControl.h */,
+				E7915EC71CED6A4600520AA1 /* SmartCurtainLogic.cpp */,
+				E7915EC81CED6A4600520AA1 /* SmartCurtainLogic.h */,
+			);
+			path = SmartCurtain;
+			sourceTree = "<group>";
+		};
+		E7915EC91CED6A4600520AA1 /* SmartLight */ = {
+			isa = PBXGroup;
+			children = (
+				E7915ECA1CED6A4600520AA1 /* Makefile */,
+				E7915ECB1CED6A4600520AA1 /* SmartLightControl.cpp */,
+				E7915ECC1CED6A4600520AA1 /* SmartLightControl.h */,
+				E7915ECD1CED6A4600520AA1 /* SmartLightLogic.cpp */,
+				E7915ECE1CED6A4600520AA1 /* SmartLightLogic.h */,
+			);
+			path = SmartLight;
+			sourceTree = "<group>";
+		};
+		E7915ECF1CED6A4600520AA1 /* voltameter */ = {
+			isa = PBXGroup;
+			children = (
+				E7915ED01CED6A4600520AA1 /* Makefile */,
+				E7915ED11CED6A4600520AA1 /* VoltameterControl.cpp */,
+				E7915ED21CED6A4600520AA1 /* VoltameterControl.h */,
+				E7915ED31CED6A4600520AA1 /* VoltameterLogic.cpp */,
+				E7915ED41CED6A4600520AA1 /* VoltameterLogic.h */,
+			);
+			path = voltameter;
+			sourceTree = "<group>";
+		};
+		E7915ED51CED6A4600520AA1 /* wifiControl */ = {
+			isa = PBXGroup;
+			children = (
+				E7915ED61CED6A4600520AA1 /* Makefile */,
+				E7915ED71CED6A4600520AA1 /* Qca4004Cmd.cpp */,
+				E7915ED81CED6A4600520AA1 /* Qca4004Cmd.h */,
+				E7915ED91CED6A4600520AA1 /* WifiControl.cpp */,
+				E7915EDA1CED6A4600520AA1 /* WifiControl.h */,
+			);
+			path = wifiControl;
+			sourceTree = "<group>";
+		};
+		E7915EDB1CED6A4600520AA1 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				E7915EDC1CED6A4600520AA1 /* cJSON.h */,
+				E7915EDD1CED6A4600520AA1 /* DevicesControl.h */,
+				E7915EDE1CED6A4600520AA1 /* JSONObject.h */,
+				E7915EDF1CED6A4600520AA1 /* XlfDeviceInfo.h */,
+				E7915EE01CED6A4600520AA1 /* XlfDeviceWrapper.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		E7915EE21CED6A4600520AA1 /* protocol */ = {
+			isa = PBXGroup;
+			children = (
+				E7915EE31CED6A4600520AA1 /* air-cleansing_msg.c */,
+				E7915EE41CED6A4600520AA1 /* air-cleansing_msg.h */,
+				E7915EE51CED6A4600520AA1 /* air-condition_msg.c */,
+				E7915EE61CED6A4600520AA1 /* air-condition_msg.h */,
+				E7915EE71CED6A4600520AA1 /* air-dehumidifier_msg.c */,
+				E7915EE81CED6A4600520AA1 /* air-dehumidifier_msg.h */,
+				E7915EE91CED6A4600520AA1 /* air-exchang_msg.c */,
+				E7915EEA1CED6A4600520AA1 /* air-exchang_msg.h */,
+				E7915EEB1CED6A4600520AA1 /* cJSON.c */,
+				E7915EEC1CED6A4600520AA1 /* cJSON.h */,
+				E7915EEE1CED6A4600520AA1 /* client.h */,
+				E7915EEF1CED6A4600520AA1 /* cmdanalysis.c */,
+				E7915EF01CED6A4600520AA1 /* cmdanalysis.h */,
+				E7915EF11CED6A4600520AA1 /* cmdprintf.c */,
+				E7915EF21CED6A4600520AA1 /* com_qd_android_livehome_socket_LocalSoketNative.ca */,
+				E7915EF31CED6A4600520AA1 /* com_qd_android_livehome_socket_LocalSoketNative.h */,
+				E7915EF41CED6A4600520AA1 /* com_sd_android_livehome_socket_LocalSoketNative.ca */,
+				E7915EF51CED6A4600520AA1 /* com_sd_android_livehome_socket_LocalSoketNative.h */,
+				E7915EF61CED6A4600520AA1 /* com_te_android_smarthome_socket_LocalSoketNative.ca */,
+				E7915EF71CED6A4600520AA1 /* com_te_android_smarthome_socket_LocalSoketNative.h */,
+				E7915EF81CED6A4600520AA1 /* com_xinlianfeng_android_livehome_hisense_ProtocolNative.ca */,
+				E7915EF91CED6A4600520AA1 /* com_xinlianfeng_android_livehome_hisense_ProtocolNative.h */,
+				E7915EFA1CED6A4600520AA1 /* command.c */,
+				E7915EFB1CED6A4600520AA1 /* command.h */,
+				E7915EFC1CED6A4600520AA1 /* common.h */,
+				E7915EFD1CED6A4600520AA1 /* crc.c */,
+				E7915EFE1CED6A4600520AA1 /* dingchenv0_9.c */,
+				E7915EFF1CED6A4600520AA1 /* drinkingfountain.c */,
+				E7915F001CED6A4600520AA1 /* Ft_gas_cooker.c */,
+				E7915F011CED6A4600520AA1 /* heator.c */,
+				E7915F021CED6A4600520AA1 /* hisense.c */,
+				E7915F031CED6A4600520AA1 /* hisense.h */,
+				E7915F041CED6A4600520AA1 /* js_type.h */,
+				E7915F051CED6A4600520AA1 /* Makefile */,
+				E7915F061CED6A4600520AA1 /* message.c */,
+				E7915F071CED6A4600520AA1 /* message.h */,
+				E7915F081CED6A4600520AA1 /* parse_js_cmd.c */,
+				E7915F091CED6A4600520AA1 /* protocol.c */,
+				E7915F0A1CED6A4600520AA1 /* protocol.h */,
+				E7915F0C1CED6A4600520AA1 /* recv.h */,
+				E7915F0D1CED6A4600520AA1 /* seed.c */,
+				E7915F0F1CED6A4600520AA1 /* send.h */,
+				E7915F101CED6A4600520AA1 /* Senser.c */,
+				E7915F121CED6A4600520AA1 /* server.h */,
+				E7915F131CED6A4600520AA1 /* smartCurtain.c */,
+				E7915F141CED6A4600520AA1 /* smartLight.c */,
+				E7915F151CED6A4600520AA1 /* vanword.ca */,
+				E7915F161CED6A4600520AA1 /* vanword.h */,
+				E7915F171CED6A4600520AA1 /* vanword_parse.c */,
+				E7915F181CED6A4600520AA1 /* Water-heater.c */,
+				E7915F191CED6A4600520AA1 /* xinglianfeng_oven.c */,
+				E7915F1A1CED6A4600520AA1 /* xlf_crc.c */,
+				E7915F1B1CED6A4600520AA1 /* xlf_crc.h */,
+				E7915F1C1CED6A4600520AA1 /* xlfVoltameter.c */,
+				E7915F1D1CED6A4600520AA1 /* xm_type.h */,
+				E7915F1E1CED6A4600520AA1 /* xmlog.c */,
+				E7915F1F1CED6A4600520AA1 /* xmlog.h */,
+			);
+			path = protocol;
+			sourceTree = "<group>";
+		};
+		E7915F791CED6ABE00520AA1 /* dehumidifier */ = {
+			isa = PBXGroup;
+			children = (
+				E7915F7A1CED6ABE00520AA1 /* DehumidifierControl.cpp */,
+				E7915F7B1CED6ABE00520AA1 /* DehumidifierControl.h */,
+				E7915F7C1CED6ABE00520AA1 /* DehumidifierLogic.cpp */,
+				E7915F7D1CED6ABE00520AA1 /* DehumidifierLogic.h */,
+				E7915F7E1CED6ABE00520AA1 /* Makefile */,
+			);
+			path = dehumidifier;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E7915E701CED69D200520AA1 /* dev_sdk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7915E7A1CED69D200520AA1 /* Build configuration list for PBXNativeTarget "dev_sdk" */;
+			buildPhases = (
+				E7915E6D1CED69D200520AA1 /* Sources */,
+				E7915E6E1CED69D200520AA1 /* Frameworks */,
+				E7915E6F1CED69D200520AA1 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = dev_sdk;
+			productName = dev_sdk;
+			productReference = E7915E711CED69D200520AA1 /* libdev_sdk.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E7915E691CED69D200520AA1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = xiaofangliang;
+				TargetAttributes = {
+					E7915E701CED69D200520AA1 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					E7915F741CED6A7D00520AA1 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = E7915E6C1CED69D200520AA1 /* Build configuration list for PBXProject "dev_sdk" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E7915E681CED69D200520AA1;
+			productRefGroup = E7915E721CED69D200520AA1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E7915E701CED69D200520AA1 /* dev_sdk */,
+				E7915F741CED6A7D00520AA1 /* joinlib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E7915F781CED6A8100520AA1 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Sets the target folders\nJIONLIB_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-joinlib\n# Clean and Building both architectures.\nxcodebuild -configuration ${CONFIGURATION} -target ${PROJECT_NAME} -sdk iphoneos clean build BULID_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\nxcodebuild -configuration ${CONFIGURATION} -target ${PROJECT_NAME} -sdk iphonesimulator clean build  BULID_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\"\n# Cleaning the oldest.\nif [ -d \"${JIONLIB_OUTPUTFOLDER}\" ]\nthen\nrm -rf \"${JIONLIB_OUTPUTFOLDER}\"\nfi\nmkdir -p \"${JIONLIB_OUTPUTFOLDER}\"\n# Uses the Lipo Tool to merge both binary files (i386 + armv6/armv7) into one Universal final product.\nlipo -create -output \"${JIONLIB_OUTPUTFOLDER}/lib${PROJECT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/lib${PROJECT_NAME}.a\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/lib${PROJECT_NAME}.a\"\n#cp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.h\" \"${JIONLIB_OUTPUTFOLDER}\"/\nopen \"${JIONLIB_OUTPUTFOLDER}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E7915E6D1CED69D200520AA1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7915F701CED6A4600520AA1 /* xlfVoltameter.c in Sources */,
+				E7915F5A1CED6A4600520AA1 /* command.c in Sources */,
+				E7915F4F1CED6A4600520AA1 /* Qca4004Cmd.cpp in Sources */,
+				E7915F351CED6A4600520AA1 /* Makefile in Sources */,
+				E7915F2B1CED6A4600520AA1 /* Makefile in Sources */,
+				E7915F4C1CED6A4600520AA1 /* VoltameterControl.cpp in Sources */,
+				E7915F5F1CED6A4600520AA1 /* heator.c in Sources */,
+				E7915F7F1CED6ABE00520AA1 /* DehumidifierControl.cpp in Sources */,
+				E7915F631CED6A4600520AA1 /* parse_js_cmd.c in Sources */,
+				E7915F2F1CED6A4600520AA1 /* ProtocolNative.cpp in Sources */,
+				E7915F321CED6A4600520AA1 /* IOTConstants.cpp in Sources */,
+				E7915F541CED6A4600520AA1 /* air-dehumidifier_msg.c in Sources */,
+				E7915F731CED6A4600520AA1 /* XlfDeviceWrapper.cpp in Sources */,
+				E7915F471CED6A4600520AA1 /* SmartCurtainLogic.cpp in Sources */,
+				E7915F4E1CED6A4600520AA1 /* Makefile in Sources */,
+				E7915F4A1CED6A4600520AA1 /* SmartLightLogic.cpp in Sources */,
+				E7915F6D1CED6A4600520AA1 /* Water-heater.c in Sources */,
+				E7915F481CED6A4600520AA1 /* Makefile in Sources */,
+				E7915F3E1CED6A4600520AA1 /* OvenLogic.cpp in Sources */,
+				E7915F461CED6A4600520AA1 /* SmartCurtainControl.cpp in Sources */,
+				E7915F281CED6A4600520AA1 /* Makefile in Sources */,
+				E7915F801CED6ABE00520AA1 /* DehumidifierLogic.cpp in Sources */,
+				E7915F441CED6A4600520AA1 /* SensorsFourInOneLogic.cpp in Sources */,
+				E7915F301CED6A4600520AA1 /* CByte.cpp in Sources */,
+				E7915F271CED6A4600520AA1 /* AirconditionLogic.cpp in Sources */,
+				E7915F5E1CED6A4600520AA1 /* Ft_gas_cooker.c in Sources */,
+				E7915F5B1CED6A4600520AA1 /* crc.c in Sources */,
+				E7915F721CED6A4600520AA1 /* XlfDeviceManager.cpp in Sources */,
+				E7915F6B1CED6A4600520AA1 /* smartLight.c in Sources */,
+				E7915F6A1CED6A4600520AA1 /* smartCurtain.c in Sources */,
+				E7915F6F1CED6A4600520AA1 /* xlf_crc.c in Sources */,
+				E7915F341CED6A4600520AA1 /* JSONObject.cpp in Sources */,
+				E7915F331CED6A4600520AA1 /* IOTUtil.cpp in Sources */,
+				E7915F261CED6A4600520AA1 /* AirconditionControl.cpp in Sources */,
+				E7915F6C1CED6A4600520AA1 /* vanword_parse.c in Sources */,
+				E7915F611CED6A4600520AA1 /* Makefile in Sources */,
+				E7915F4D1CED6A4600520AA1 /* VoltameterLogic.cpp in Sources */,
+				E7915F551CED6A4600520AA1 /* air-exchang_msg.c in Sources */,
+				E7915F251CED6A4600520AA1 /* Makefile in Sources */,
+				E7915F811CED6ABE00520AA1 /* Makefile in Sources */,
+				E7915F681CED6A4600520AA1 /* Senser.c in Sources */,
+				E7915F431CED6A4600520AA1 /* SensorsFourInOneControl.cpp in Sources */,
+				E7915F6E1CED6A4600520AA1 /* xinglianfeng_oven.c in Sources */,
+				E7915F5D1CED6A4600520AA1 /* drinkingfountain.c in Sources */,
+				E7915F621CED6A4600520AA1 /* message.c in Sources */,
+				E7915F451CED6A4600520AA1 /* Makefile in Sources */,
+				E7915F3C1CED6A4600520AA1 /* Makefile in Sources */,
+				E7915F661CED6A4600520AA1 /* seed.c in Sources */,
+				E7915F2C1CED6A4600520AA1 /* DeviceControl.cpp in Sources */,
+				E7915F2E1CED6A4600520AA1 /* Makefile in Sources */,
+				E7915F561CED6A4600520AA1 /* cJSON.c in Sources */,
+				E7915F401CED6A4600520AA1 /* SeedMachineControl.cpp in Sources */,
+				E7915F491CED6A4600520AA1 /* SmartLightControl.cpp in Sources */,
+				E7915F5C1CED6A4600520AA1 /* dingchenv0_9.c in Sources */,
+				E7915F241CED6A4600520AA1 /* AirCleanerLogic.cpp in Sources */,
+				E7915F501CED6A4600520AA1 /* WifiControl.cpp in Sources */,
+				E7915F2D1CED6A4600520AA1 /* DeviceLogic.cpp in Sources */,
+				E7915F4B1CED6A4600520AA1 /* Makefile in Sources */,
+				E7915F291CED6A4600520AA1 /* AirFanControl.cpp in Sources */,
+				E7915F231CED6A4600520AA1 /* AirCleanerControl.cpp in Sources */,
+				E7915F591CED6A4600520AA1 /* cmdprintf.c in Sources */,
+				E7915F521CED6A4600520AA1 /* air-cleansing_msg.c in Sources */,
+				E7915F2A1CED6A4600520AA1 /* AirFanLogic.cpp in Sources */,
+				E7915F581CED6A4600520AA1 /* cmdanalysis.c in Sources */,
+				E7915F711CED6A4600520AA1 /* xmlog.c in Sources */,
+				E7915F531CED6A4600520AA1 /* air-condition_msg.c in Sources */,
+				E7915F411CED6A4600520AA1 /* SeedMachineControlLogic.cpp in Sources */,
+				E7915F421CED6A4600520AA1 /* Makefile in Sources */,
+				E7915F3F1CED6A4600520AA1 /* Makefile in Sources */,
+				E7915F641CED6A4600520AA1 /* protocol.c in Sources */,
+				E7915F3D1CED6A4600520AA1 /* OvenControl.cpp in Sources */,
+				E7915F601CED6A4600520AA1 /* hisense.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E7915E781CED69D200520AA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		E7915E791CED69D200520AA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E7915E7B1CED69D200520AA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		E7915E7C1CED69D200520AA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		E7915F761CED6A7D00520AA1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E7915F771CED6A7D00520AA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E7915E6C1CED69D200520AA1 /* Build configuration list for PBXProject "dev_sdk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7915E781CED69D200520AA1 /* Debug */,
+				E7915E791CED69D200520AA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E7915E7A1CED69D200520AA1 /* Build configuration list for PBXNativeTarget "dev_sdk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7915E7B1CED69D200520AA1 /* Debug */,
+				E7915E7C1CED69D200520AA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E7915F751CED6A7D00520AA1 /* Build configuration list for PBXAggregateTarget "joinlib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7915F761CED6A7D00520AA1 /* Debug */,
+				E7915F771CED6A7D00520AA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E7915E691CED69D200520AA1 /* Project object */;
+}

@@ -51,7 +51,7 @@ static cmd_map_t set_cmd[]={
 	{"SoundSet",	
 		NULL,
 		{NULL,61,1,T_HEX,0},
-		{NULL}
+		{NULL,0,0,0,0}
 	},
 	{"Power",	
 		NULL,
@@ -152,7 +152,7 @@ static cmd_map_t query_cmd[]={
 	{"GetAll",	
 		NULL,
 		{NULL,7,8,0,0},	/*手动或自动*/
-		{NULL}
+		END_POS
 	},
 	
 	// add member above
@@ -336,7 +336,7 @@ static void move_data(u8 * buf,int len,int offset){
  * 返回0，size overflow
 */
 static u8 extend_buff(u8 *start,u8 len){
-	u8 allLen=len;
+	u16 allLen=len;
 	u8 i;	
 	start +=2;	// escape f4 f5
 	len-=2;

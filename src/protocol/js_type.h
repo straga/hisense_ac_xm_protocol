@@ -43,7 +43,7 @@ typedef struct pos{
  * 每个JSON命令对应的结构
  * @extra_para 如果存在，则以 start 为0表示结束
  */
-#define END_CMD_MAP {NULL,NULL,{0},{0}}
+#define END_CMD_MAP {NULL,NULL,END_POS,END_POS}
 typedef struct cmd_map{
 	char *cmd;
 	pos_t *set_extral;	//4
