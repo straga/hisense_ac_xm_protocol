@@ -1,4 +1,5 @@
 *.o
+*.map
 obj
 main
 *.so

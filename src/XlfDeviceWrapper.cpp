@@ -3,7 +3,7 @@
 //  Devices
 //
 //  Created by 肖芳亮 on 16/2/24.
-//  Copyright © 2016年 XLF. All rights reserved.
+//  Copyright ? 2016年 XLF. All rights reserved.
 //
 
 #include "XlfDeviceWrapper.h"
@@ -13,6 +13,20 @@
 #define default_int     -1
 #define default_bool    false
 
+
+int XlfDeviceWrapper::getDeviceType(const string &deviceId)
+{
+    if(NULL != devicesControlManager)
+    {
+        XlfDeviceInfo *deviceInfo = ((XlfDeviceManager *)devicesControlManager)->getDeviceInfo(deviceId);
+        if(NULL != deviceInfo)
+        {
+        	return deviceInfo->getDeviceType();
+        }
+    }
+	return -1;
+}
+
 XlfDeviceWrapper::XlfDeviceWrapper()
 {
     devicesControlManager = &XlfDeviceManager::getInstance();
@@ -21,7 +35,7 @@ XlfDeviceWrapper::XlfDeviceWrapper()
 /**
  * 初始化设备的控制类
  */
-bool XlfDeviceWrapper::initDevicesControl(string deviceId, int deviceType)
+bool XlfDeviceWrapper::initDevicesControl(const string &deviceId, int deviceType)
 {
     if(NULL != devicesControlManager)
     {
@@ -33,7 +47,7 @@ bool XlfDeviceWrapper::initDevicesControl(string deviceId, int deviceType)
 /**
  *  删除单个设备的控制类
  */
-bool XlfDeviceWrapper::delDevicesControl(string deviceId)
+bool XlfDeviceWrapper::delDevicesControl(const string &deviceId)
 {
     if(NULL != devicesControlManager)
     {
@@ -45,7 +59,7 @@ bool XlfDeviceWrapper::delDevicesControl(string deviceId)
 /**
  * 获取设备控制类
  */
-void* XlfDeviceWrapper::getDeviceControl(string deviceId)
+void* XlfDeviceWrapper::getDeviceControl(const string &deviceId)
 {
     if(NULL != devicesControlManager)
     {
@@ -311,7 +325,7 @@ string XlfDeviceWrapper::getSmartStatus(string deviceId)
 /**
  * 解析返回结果
  */
-string XlfDeviceWrapper::parseResult(string deviceId, string result)
+string XlfDeviceWrapper::parseResult(const string &deviceId, const string &result)
 {
     DeviceControl *devicesControl = (DeviceControl *)getDeviceControl(deviceId);
     if(devicesControl != NULL)
@@ -6507,100 +6521,100 @@ string XlfDeviceWrapper::getVoltameterIsPeripheralsCommunicationError(string dev
 /*********************************** Oven *******************************************/
 /****************** set ******************/
 // 烤箱开机
-string XlfDeviceWrapper::setOvenPowerOn(string deviceId, bool isPowerOn, bool manualOrnot)
+string XlfDeviceWrapper::setOvenPowerOn(string deviceId, bool isPowerOn, bool manualOrnot,int flag)
 {
     OvenControl *ovenControl = (OvenControl *)getDeviceControl(deviceId);
     if(NULL != ovenControl)
     {
-        return ovenControl->setPowerOn(isPowerOn, manualOrnot);
+        return ovenControl->setPowerOn(isPowerOn, manualOrnot,flag);
     }
     return default_string;
 }
 
 // 烤箱关机
-string XlfDeviceWrapper::setOvenPowerOff(string deviceId, bool isPowerOn, bool manualOrnot)
+string XlfDeviceWrapper::setOvenPowerOff(string deviceId, bool isPowerOn, bool manualOrnot,int flag)
 {
     OvenControl *ovenControl = (OvenControl *)getDeviceControl(deviceId);
     if(NULL != ovenControl)
     {
-        return ovenControl->setPowerOff(isPowerOn, manualOrnot);
+        return ovenControl->setPowerOff(isPowerOn, manualOrnot,flag);
     }
     return default_string;
 }
 
 // 风机开关
-string XlfDeviceWrapper::setOvenFS(string deviceId, long uid, bool isOpen, bool manualOrnot)
-{
+string XlfDeviceWrapper::setOvenFS(string deviceId, long uid, bool isOpen, bool manualOrnot,int flag)
+{	
     OvenControl *ovenControl = (OvenControl *)getDeviceControl(deviceId);
     if(NULL != ovenControl)
     {
-        return ovenControl->setFS(uid, isOpen, manualOrnot);
+        return ovenControl->setFS(uid, isOpen, manualOrnot,flag);
     }
     return default_string;
 }
 
 // 转叉开关
-string XlfDeviceWrapper::setOvenZC(string deviceId, long uid, bool isOpen, bool manualOrnot)
+string XlfDeviceWrapper::setOvenZC(string deviceId, long uid, bool isOpen, bool manualOrnot,int flag)
 {
     OvenControl *ovenControl = (OvenControl *)getDeviceControl(deviceId);
     if(NULL != ovenControl)
     {
-        return ovenControl->setZC(uid, isOpen, manualOrnot);
+        return ovenControl->setZC(uid, isOpen, manualOrnot,flag);
     }
     return default_string;
 }
 
 // 炉灯开关
-string XlfDeviceWrapper::setOvenD(string deviceId, long uid, bool isOpen,bool manualOrnot)
+string XlfDeviceWrapper::setOvenD(string deviceId, long uid, bool isOpen,bool manualOrnot,int flag)
 {
     OvenControl *ovenControl = (OvenControl *)getDeviceControl(deviceId);
     if(NULL != ovenControl)
     {
-        return ovenControl->setD(uid, isOpen, manualOrnot);
+        return ovenControl->setD(uid, isOpen, manualOrnot,flag);
     }
     return default_string;
 }
 
 // 上下管温度设置
-string XlfDeviceWrapper::setOvenUDTubeTemperature(string deviceId, long uid, int temperatureU, int temperatureM, int temperatureD ,bool manualOrnot)
+string XlfDeviceWrapper::setOvenUDTubeTemperature(string deviceId, long uid, int temperatureU, int temperatureM, int temperatureD ,bool manualOrnot,int flag)
 {
     OvenControl *ovenControl = (OvenControl *)getDeviceControl(deviceId);
     if(NULL != ovenControl)
     {
-        return ovenControl->setUDTubeTemperature(uid, temperatureU, temperatureM, temperatureD, manualOrnot);
+        return ovenControl->setUDTubeTemperature(uid, temperatureU, temperatureM, temperatureD, manualOrnot,flag);
     }
     return default_string;
 }
 
 // 状态查询
-string XlfDeviceWrapper::getOvenStatus(string deviceId, bool manualOrnot)
+string XlfDeviceWrapper::getOvenStatus(string deviceId, bool manualOrnot,int flag)
 {
     OvenControl *ovenControl = (OvenControl *)getDeviceControl(deviceId);
     if(NULL != ovenControl)
     {
-        return ovenControl->getStatus(manualOrnot);
+        return ovenControl->getStatus(manualOrnot,flag);
     }
     return default_string;
 }
 
 // 功能查询
-string XlfDeviceWrapper::getOvenGN(string deviceId, bool manualOrnot)
+string XlfDeviceWrapper::getOvenGN(string deviceId, bool manualOrnot,int flag)
 {
     OvenControl *ovenControl = (OvenControl *)getDeviceControl(deviceId);
     if(NULL != ovenControl)
     {
-        return ovenControl->getGN(manualOrnot);
+        return ovenControl->getGN(manualOrnot,flag);
     }
     return default_string;
 }
 
 // 设置菜单名字
-string XlfDeviceWrapper::setOvenMenuName(string deviceId, long uid, int menuNub, int sub_node, int time, string name, bool manualOrnot)
+string XlfDeviceWrapper::setOvenMenuName(string deviceId, long uid, int menuNub, int sub_node, int time, string name, bool manualOrnot,int flag)
 {
     OvenControl *ovenControl = (OvenControl *)getDeviceControl(deviceId);
     if(NULL != ovenControl)
     {
-        return ovenControl->setMenuName(uid, menuNub, sub_node, time, name, manualOrnot);
+        return ovenControl->setMenuName(uid, menuNub, sub_node, time, name, manualOrnot,flag);
     }
     return default_string;
 }
@@ -6614,12 +6628,17 @@ string XlfDeviceWrapper::setOvenMenuName(string deviceId, long uid, int menuNub,
  * 上管温度有效设置位[0/1] ，下管温度有效设置位[0/1] ，转叉开关有效设置位[0/1]，
  * 风机开关有效设置位[0/1]，提醒暂停有效设置位[0/1]，提示声[0/1]，帧序号[0-254]
  * */
-string XlfDeviceWrapper::setOvenMenuTemperatureExtend(string deviceId, long uid, int menuNub, int sub_node, int time, int temperatureU, int temperatureM, int temperatureD, bool rotary_fork, bool fan_power, bool remind_suspend, bool time_effective, bool upper_tube_temperature_effective, bool middle_tube_temperature_effective, bool lower_tube_temperature_effective, bool rotary_fork_effective, bool fan_power_effective, bool remind_suspend_effective, int a_x, bool manualOrnot)
+string XlfDeviceWrapper::setOvenMenuTemperatureExtend(string deviceId, long uid, int menuNub, int sub_node, int time, int temperatureU, int temperatureM,\
+	int temperatureD, bool rotary_fork, bool fan_power, bool remind_suspend, bool time_effective, bool upper_tube_temperature_effective,\
+	bool middle_tube_temperature_effective, bool lower_tube_temperature_effective, bool rotary_fork_effective, \
+	bool fan_power_effective, bool remind_suspend_effective, int a_x, bool manualOrnot,int flag)
 {
     OvenControl *ovenControl = (OvenControl *)getDeviceControl(deviceId);
     if(NULL != ovenControl)
     {
-        return ovenControl->setMenuTemperatureExtend(uid, menuNub,sub_node,time,temperatureU,temperatureM,temperatureD,rotary_fork,fan_power,remind_suspend,time_effective,upper_tube_temperature_effective,middle_tube_temperature_effective,lower_tube_temperature_effective,rotary_fork_effective,fan_power_effective,remind_suspend_effective,a_x,manualOrnot);
+        return ovenControl->setMenuTemperatureExtend(uid, menuNub,sub_node,time,temperatureU,temperatureM,temperatureD,rotary_fork,fan_power,\
+			remind_suspend,time_effective,upper_tube_temperature_effective,middle_tube_temperature_effective,lower_tube_temperature_effective,\
+		rotary_fork_effective,fan_power_effective,remind_suspend_effective,a_x,manualOrnot,flag);
     }
     return default_string;
 }
@@ -6627,12 +6646,12 @@ string XlfDeviceWrapper::setOvenMenuTemperatureExtend(string deviceId, long uid,
 /**
  * 	曲线完整性检查
  */
-string XlfDeviceWrapper::setOvenCheckCurveIntegrity(string deviceId, long uid, int menuNub,bool manualOrnot)
+string XlfDeviceWrapper::setOvenCheckCurveIntegrity(string deviceId, long uid, int menuNub,bool manualOrnot,int flag)
 {
     OvenControl *ovenControl = (OvenControl *)getDeviceControl(deviceId);
     if(NULL != ovenControl)
     {
-        return ovenControl->checkCurveIntegrity(uid, menuNub, manualOrnot);
+        return ovenControl->checkCurveIntegrity(uid, menuNub, manualOrnot,flag);
     }
     return default_string;
 }
@@ -6640,12 +6659,12 @@ string XlfDeviceWrapper::setOvenCheckCurveIntegrity(string deviceId, long uid, i
 /**
  * 	曲线执行命令
  */
-string XlfDeviceWrapper::setOvenExcuteCurveCmd(string deviceId, long uid, int menuNub,bool manualOrnot)
+string XlfDeviceWrapper::setOvenExcuteCurveCmd(string deviceId, long uid, int menuNub,bool manualOrnot,int flag)
 {
     OvenControl *ovenControl = (OvenControl *)getDeviceControl(deviceId);
     if(NULL != ovenControl)
     {
-        return ovenControl->excuteCurveCmd(uid, menuNub, manualOrnot);
+        return ovenControl->excuteCurveCmd(uid, menuNub, manualOrnot,flag);
     }
     return default_string;
 }
@@ -6653,12 +6672,12 @@ string XlfDeviceWrapper::setOvenExcuteCurveCmd(string deviceId, long uid, int me
 /**
  *  获取菜单名字
  */
-string XlfDeviceWrapper::setOvenMenuName(string deviceId, int menuNub,bool manualOrnot)
+string XlfDeviceWrapper::setOvenMenuName(string deviceId, int menuNub,bool manualOrnot,int flag)
 {
     OvenControl *ovenControl = (OvenControl *)getDeviceControl(deviceId);
     if(NULL != ovenControl)
     {
-        return ovenControl->getMenuName(menuNub, manualOrnot);
+        return ovenControl->getMenuName(menuNub, manualOrnot,flag);
     }
     return default_string;
 }
@@ -6667,12 +6686,12 @@ string XlfDeviceWrapper::setOvenMenuName(string deviceId, int menuNub,bool manua
  *   获取温度曲线扩展命令
  *   菜谱编号[0/1/2/3]，子节点[0-9]，提示声[0/1]，帧序号[0-254]
  */
-string XlfDeviceWrapper::setOvenMenuTemperatureExtend(string deviceId, int menuNub,int sub_node, int a_x ,bool manualOrnot)
+string XlfDeviceWrapper::setOvenMenuTemperatureExtend(string deviceId, int menuNub,int sub_node, int a_x ,bool manualOrnot,int flag)
 {
     OvenControl *ovenControl = (OvenControl *)getDeviceControl(deviceId);
     if(NULL != ovenControl)
     {
-        return ovenControl->getMenuTemperatureExtend(menuNub, sub_node, a_x, manualOrnot);
+        return ovenControl->getMenuTemperatureExtend(menuNub, sub_node, a_x, manualOrnot,flag);
     }
     return default_string;
 }
@@ -6682,12 +6701,12 @@ string XlfDeviceWrapper::setOvenMenuTemperatureExtend(string deviceId, int menuN
  *  菜谱编号[0/1/2]，提示声[0/1]，帧序号[0]
  *
  */
-string XlfDeviceWrapper::setOvenCancelExcuteCurveCmd(string deviceId, long uid, int menuNub ,bool manualOrnot)
+string XlfDeviceWrapper::setOvenCancelExcuteCurveCmd(string deviceId, long uid, int menuNub ,bool manualOrnot,int flag)
 {
     OvenControl *ovenControl = (OvenControl *)getDeviceControl(deviceId);
     if(NULL != ovenControl)
     {
-        return ovenControl->cancelExcuteCurveCmd(uid, menuNub, manualOrnot);
+        return ovenControl->cancelExcuteCurveCmd(uid, menuNub, manualOrnot,flag);
     }
     return default_string;
 }
@@ -6696,12 +6715,12 @@ string XlfDeviceWrapper::setOvenCancelExcuteCurveCmd(string deviceId, long uid, 
  * 	曲线暂停-继续操作命令
  *  菜谱编号[0/1/2]，暂停或继续[0/1],提示声[0/1]，帧序号[0]
  */
-string XlfDeviceWrapper::setOvenPauseOrContinueCurve(string deviceId, long uid, int menuNub,bool pause_or_continue, bool manualOrnot)
+string XlfDeviceWrapper::setOvenPauseOrContinueCurve(string deviceId, long uid, int menuNub,bool pause_or_continue, bool manualOrnot,int flag)
 {
     OvenControl *ovenControl = (OvenControl *)getDeviceControl(deviceId);
     if(NULL != ovenControl)
     {
-        return ovenControl->pauseOrContinueCurve(uid, menuNub, pause_or_continue, manualOrnot);
+        return ovenControl->pauseOrContinueCurve(uid, menuNub, pause_or_continue, manualOrnot,flag);
     }
     return default_string;
 }

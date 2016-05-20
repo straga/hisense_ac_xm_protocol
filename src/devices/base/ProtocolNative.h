@@ -17,6 +17,8 @@ using namespace std;
 
 class ProtocolNative {//: public IProtocolNative
 	private: 
+    typedef enum{FCS_1BYTE_ADD = 0,FCS_2BYTES_ADD = 1,FCS_2BYTES_CRC = 2,FCS_4BYTES_CRC = 3}CheckSumType;
+        
 	static const string TAG;
 //	static {
 //		System.loadLibrary("hisense");

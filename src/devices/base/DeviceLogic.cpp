@@ -3,7 +3,7 @@
 //  Devices
 //
 //  Created by 肖芳亮 on 16/2/24.
-//  Copyright © 2016年 XLF. All rights reserved.
+//  Copyright ? 2016年 XLF. All rights reserved.
 //
 
 #include "DeviceLogic.h"
@@ -236,6 +236,8 @@ bool DeviceLogic::getOnlineStatus()
 // 解析 F4F5指令
 string DeviceLogic::parseResult(string result)
 {
+	bool parseResult = false;
+
     if(result.find("F4F5") == string::npos)
     {
         return "";
@@ -254,19 +256,24 @@ string DeviceLogic::parseResult(string result)
     {
         vector<string> retStatus = IOTUtil::split(temp.at(0),":");
         
-        setDeviceAllStatus( IOTUtil::subString(tmp,2 + (int)At_QureyStatus.length(),(int)tmp.length()));
+        parseResult = setDeviceAllStatus( IOTUtil::subString(tmp,2 + (int)At_QureyStatus.length(),(int)tmp.length()));
         
         string ret = retStatus.at(0);
         ret = IOTUtil::subString(ret,1,(int)ret.length());
-        
-        return ret + ":SUCCEED";
+        if(true == parseResult){
+			return "{\"Cmd\":\""+ret+"\",\"Result\":\"SUCCEED\",\"FreshState\":1}";
+		}
+        return "{\"Cmd\":\""+ret+"\",\"Result\":\"ERROR\"}";
     }
     
     // 更新设备功能列表
     pos = tmp.find(At_QueryFuntion);
     if(pos != string::npos)
     {
-        setDeviceFunction(result);
+        parseResult = setDeviceFunction(result);
+		if(true == parseResult){
+			return "{\"Cmd\":\""+At_QueryFuntion+"\",\"Result\":\"SUCCEED\"}";
+		}
         return "";
     }
     
@@ -276,7 +283,7 @@ string DeviceLogic::parseResult(string result)
         vector<string> retVersion = IOTUtil::split(temp.at(0),":");
 
         softVersion = retVersion.at(1) + temp.at(1);
-        return "";
+		return "{\"Cmd\":\"KLCXB\",\"Result\":\"SUCCEED\"}";
     }
     
     // 控制状态返回

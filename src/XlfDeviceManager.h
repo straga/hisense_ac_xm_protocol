@@ -3,7 +3,7 @@
 //  Devices
 //
 //  Created by 肖芳亮 on 16/2/24.
-//  Copyright © 2016年 XLF. All rights reserved.
+//  Copyright ? 2016年 XLF. All rights reserved.
 //
 
 #ifndef XlfDeviceManager_h
@@ -36,17 +36,17 @@ public:
     /**
      * 创建设备控制信息类
      */
-    bool initDeviceControl(string deviceId, int deviceType);
+    bool initDeviceControl(const string &deviceId, int deviceType);
     
     /**
      *  删除单个设备控制信息类
      */
-    bool deleteDeviceControl(string deviceId);
+    bool deleteDeviceControl(const string &deviceId);
     
     /**
      *  获取单个设备控制信息类
      */
-    XlfDeviceInfo* getDeviceInfo(string deviceId);
+    XlfDeviceInfo* getDeviceInfo(const string &deviceId);
     
 };
 

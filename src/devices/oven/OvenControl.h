@@ -32,22 +32,22 @@ public:
     
     ~OvenControl();
     
-    string setPowerOn(bool isPowerOn, bool manualOrnot);
-    string setPowerOff(bool isPowerOn, bool manualOrnot);
-    string setFS(long uid, bool isOpen, bool manualOrnot);
-    string setZC(long uid, bool isOpen, bool manualOrnot);
-    string setD(long uid, bool isOpen,bool manualOrnot);
-    string setUDTubeTemperature(long uid, int temperatureU, int temperatureM, int temperatureD ,bool manualOrnot);
-    string getStatus(bool manualOrnot);
-    string getGN(bool manualOrnot);
-    string setMenuName(long uid, int menuNub, int sub_node, int time, string name, bool manualOrnot);
-    string setMenuTemperatureExtend(long uid, int menuNub, int sub_node, int time, int temperatureU, int temperatureM, int temperatureD, bool rotary_fork, bool fan_power, bool remind_suspend, bool time_effective, bool upper_tube_temperature_effective, bool middle_tube_temperature_effective, bool lower_tube_temperature_effective, bool rotary_fork_effective, bool fan_power_effective, bool remind_suspend_effective, int a_x, bool manualOrnot);
-    string checkCurveIntegrity(long uid, int menuNub,bool manualOrnot);
-    string excuteCurveCmd(long uid, int menuNub,bool manualOrnot);
-    string getMenuName(int menuNub,bool manualOrnot);
-    string getMenuTemperatureExtend(int menuNub,int sub_node, int a_x ,bool manualOrnot);
-    string cancelExcuteCurveCmd(long uid, int menuNub ,bool manualOrnot);
-    string pauseOrContinueCurve(long uid, int menuNub,bool pause_or_continue, bool manualOrnot);
+    string setPowerOn(bool isPowerOn, bool manualOrnot,int flag);
+    string setPowerOff(bool isPowerOn, bool manualOrnot,int flag);
+    string setFS(long uid, bool isOpen, bool manualOrnot,int flag);
+    string setZC(long uid, bool isOpen, bool manualOrnot,int flag);
+    string setD(long uid, bool isOpen,bool manualOrnot,int flag);
+    string setUDTubeTemperature(long uid, int temperatureU, int temperatureM, int temperatureD ,bool manualOrnot,int flag);
+    string getStatus(bool manualOrnot,int flag);
+    string getGN(bool manualOrnot,int flag);
+    string setMenuName(long uid, int menuNub, int sub_node, int time, string name, bool manualOrnot,int flag);
+    string setMenuTemperatureExtend(long uid, int menuNub, int sub_node, int time, int temperatureU, int temperatureM, int temperatureD, bool rotary_fork, bool fan_power, bool remind_suspend, bool time_effective, bool upper_tube_temperature_effective, bool middle_tube_temperature_effective, bool lower_tube_temperature_effective, bool rotary_fork_effective, bool fan_power_effective, bool remind_suspend_effective, int a_x, bool manualOrnot,int flag);
+    string checkCurveIntegrity(long uid, int menuNub,bool manualOrnot,int flag);
+    string excuteCurveCmd(long uid, int menuNub,bool manualOrnot,int flag);
+    string getMenuName(int menuNub,bool manualOrnot,int flag);
+    string getMenuTemperatureExtend(int menuNub,int sub_node, int a_x ,bool manualOrnot,int flag);
+    string cancelExcuteCurveCmd(long uid, int menuNub ,bool manualOrnot,int flag);
+    string pauseOrContinueCurve(long uid, int menuNub,bool pause_or_continue, bool manualOrnot,int flag);
 
     long getUid();
     bool getStatuYR();

@@ -83,7 +83,7 @@ string OvenLogic::setUid(long uid)
 /**
  * 1.1	风机开关
  * */
-string OvenLogic::setFS(long uid, bool isOpen, bool manualOrnot)
+string OvenLogic::setFS(long uid, bool isOpen, bool manualOrnot, int flag)
 {
     string isOpenStr = IOTUtil::intToString(isOpen);
     ZD[8] = isOpenStr;
@@ -91,13 +91,15 @@ string OvenLogic::setFS(long uid, bool isOpen, bool manualOrnot)
 				IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId + IOTConstants::PARAM_VALUE_SPLIT +
 				setUid(uid) + IOTConstants::PARAM_VALUE_SPLIT + isOpenStr + IOTConstants::PARAM_VALUE_SPLIT +
 				IOTUtil::intToString(manualOrnot) + IOTConstants::CMD_AT_WRAP;
+	if(flag == 2)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 
 /**
  * 	烤箱开机
  * */
-string OvenLogic::setKJ(bool isOpen, bool manualOrnot)
+string OvenLogic::setKJ(bool isOpen, bool manualOrnot,int flag)
 {
     string isOpenStr = IOTUtil::intToString(isOpen);
     ZD[5] = isOpenStr;
@@ -107,13 +109,15 @@ string OvenLogic::setKJ(bool isOpen, bool manualOrnot)
 				IOTConstants::PARAM_VALUE_SPLIT +
 				IOTUtil::intToString(manualOrnot) +
 				IOTConstants::CMD_AT_WRAP;
+	if(flag == 2)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 
 /**
  * 	烤箱关机
  * */
-string OvenLogic::setGJ(bool isOpen, bool manualOrnot)
+string OvenLogic::setGJ(bool isOpen, bool manualOrnot,int flag)
 {
     string isOpenStr = IOTUtil::intToString(isOpen);
     ZD[5] = isOpenStr;
@@ -123,13 +127,15 @@ string OvenLogic::setGJ(bool isOpen, bool manualOrnot)
 				IOTConstants::PARAM_VALUE_SPLIT +
 				IOTUtil::intToString(manualOrnot) +
 				IOTConstants::CMD_AT_WRAP;
+	if(2 == flag)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 
 /**
  * 1.2	转叉开关
  * */
-string OvenLogic::setZC(long uid, bool isOpen, bool manualOrnot)
+string OvenLogic::setZC(long uid, bool isOpen, bool manualOrnot,int flag)
 {
     string isOpenStr = IOTUtil::intToString(isOpen);
     ZD[7] = isOpenStr;
@@ -139,13 +145,15 @@ string OvenLogic::setZC(long uid, bool isOpen, bool manualOrnot)
                 IOTConstants::PARAM_VALUE_SPLIT + isOpenStr  +
                 IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(manualOrnot) +
 				IOTConstants::CMD_AT_WRAP;
+	if(2 == flag)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 
 /**
  *  1.3	炉灯开关
  * */
-string OvenLogic::setD(long uid, bool isOpen,bool manualOrnot)
+string OvenLogic::setD(long uid, bool isOpen,bool manualOrnot,int flag)
 {
     string isOpenStr = IOTUtil::intToString(isOpen);
     ZD[6] = isOpenStr;
@@ -155,6 +163,8 @@ string OvenLogic::setD(long uid, bool isOpen,bool manualOrnot)
 				IOTConstants::PARAM_VALUE_SPLIT + isOpenStr  +
 				IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(manualOrnot) +
 				IOTConstants::CMD_AT_WRAP;
+	if(2 == flag)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 
@@ -164,7 +174,7 @@ string OvenLogic::setD(long uid, bool isOpen,bool manualOrnot)
  * 设置功能: 上管温度-高位[暂时为 0], 上管温度-低位[40~230]，下管温度-高位[暂时为 0],
  * 下管温度-低位[40~230]，提示声[0/1]
  * */
-string OvenLogic::setUDTubeTemperature(long uid, int temperatureUH, int temperatureUL, int temperatureMH, int temperatureML, int temperatureDH, int temperatureDL, bool manualOrnot)
+string OvenLogic::setUDTubeTemperature(long uid, int temperatureUH, int temperatureUL, int temperatureMH, int temperatureML, int temperatureDH, int temperatureDL, bool manualOrnot,int flag)
 {
     string atcmd =  IOTConstants::CMD_AT_MARK + "OVUDT" +
 				IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId +
@@ -177,6 +187,8 @@ string OvenLogic::setUDTubeTemperature(long uid, int temperatureUH, int temperat
 				IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(temperatureDL) +
 				IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(manualOrnot) +
 				IOTConstants::CMD_AT_WRAP;
+	if(2 == flag)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 
@@ -194,7 +206,7 @@ string OvenLogic::setUDTubeTemperature(long uid, int temperatureUH, int temperat
 /**
  * 8.5	状态查询
  * */
-string OvenLogic::getZD(bool manualOrnot)
+string OvenLogic::getZD(bool manualOrnot,int flag)
 {
     string atcmd =  IOTConstants::CMD_AT_MARK + "OVSQ" +
 				IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId +
@@ -202,19 +214,23 @@ string OvenLogic::getZD(bool manualOrnot)
 				IOTConstants::PARAM_VALUE_SPLIT +
 				IOTUtil::intToString(manualOrnot) +
 				IOTConstants::CMD_AT_WRAP;
+	if(2 == flag)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 
 /**
  * 1.6 	功能查询(暂时不支持)
  * */
-string OvenLogic::getGN(bool manualOrnot)
+string OvenLogic::getGN(bool manualOrnot,int flag)
 {
     string atcmd =  IOTConstants::CMD_AT_MARK + "OVFQ" +
            IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId +
            IOTConstants::PARAM_VALUE_SPLIT + "?" +
            IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(manualOrnot) +
            IOTConstants::CMD_AT_WRAP;
+	if(2 == flag)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 
@@ -226,7 +242,7 @@ string OvenLogic::getGN(bool manualOrnot)
  * IOTConstants::PARAM_VALUE_SPLIT + device_fd + 	帧序号???
  * IOTConstants::PARAM_VALUE_SPLIT + "0" +			???
  * */
-string OvenLogic::setMenuName(long uid, int nub ,int points, int timeA ,int timeB ,string nameASCII ,bool manualOrnot)
+string OvenLogic::setMenuName(long uid, int nub ,int points, int timeA ,int timeB ,string nameASCII ,bool manualOrnot,int flag)
 {
     string atcmd =  IOTConstants::CMD_AT_MARK + "OVSMN" +
 				IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId +
@@ -239,7 +255,8 @@ string OvenLogic::setMenuName(long uid, int nub ,int points, int timeA ,int time
 				IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(manualOrnot) +
 				IOTConstants::PARAM_VALUE_SPLIT + "0" +
 				IOTConstants::CMD_AT_WRAP;
-    
+    if(2 == flag)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 
@@ -252,7 +269,11 @@ string OvenLogic::setMenuName(long uid, int nub ,int points, int timeA ,int time
  * 上管温度有效设置位[0/1] ，下管温度有效设置位[0/1] ，转叉开关有效设置位[0/1]，
  * 风机开关有效设置位[0/1]，提醒暂停有效设置位[0/1]，提示声[0/1]，帧序号[0-254]
  * */
-string OvenLogic::setMenuTemperatureExtend(long uid, int points, int sub_node, int timeA,int timeB, int temperatureUH, int temperatureUL, int temperatureMH, int temperatureML, int temperatureDH, int temperatureDL, bool rotary_fork, bool fan_power, bool remind_suspend, bool time_effective, bool upper_tube_temperature_effective, bool middle_tube_temperature_effective, bool lower_tube_temperature_effective, bool rotary_fork_effective, bool fan_power_effective, bool remind_suspend_effective, int a_x, bool manualOrnot)
+string OvenLogic::setMenuTemperatureExtend(long uid, int points, int sub_node, int timeA,int timeB, int temperatureUH, int temperatureUL,\
+	int temperatureMH, int temperatureML, int temperatureDH, int temperatureDL, bool rotary_fork, bool fan_power, bool remind_suspend, \
+	bool time_effective, bool upper_tube_temperature_effective, bool middle_tube_temperature_effective, \
+	bool lower_tube_temperature_effective, bool rotary_fork_effective, bool fan_power_effective, bool remind_suspend_effective, \
+	int a_x, bool manualOrnot,int flag)
 {
     string atcmd =  IOTConstants::CMD_AT_MARK + "OVSMTEx" +
 				IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId +
@@ -280,6 +301,8 @@ string OvenLogic::setMenuTemperatureExtend(long uid, int points, int sub_node, i
 				IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(manualOrnot) +
 				IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(a_x) +
 				IOTConstants::CMD_AT_WRAP;
+	if(2 == flag)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 
@@ -288,7 +311,7 @@ string OvenLogic::setMenuTemperatureExtend(long uid, int points, int sub_node, i
  *
  * 设置功能: 菜谱编号[0/1/2]，提示声[0/1]，帧序号[0]
  * */
-string OvenLogic::checkCurveIntegrity(long uid, int points,bool manualOrnot)
+string OvenLogic::checkCurveIntegrity(long uid, int points,bool manualOrnot,int flag)
 {
     string atcmd = IOTConstants::CMD_AT_MARK + "OVCIC" +
 				IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId +
@@ -297,6 +320,8 @@ string OvenLogic::checkCurveIntegrity(long uid, int points,bool manualOrnot)
 				IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(manualOrnot) +
                 IOTConstants::PARAM_VALUE_SPLIT + "0" +
 				IOTConstants::CMD_AT_WRAP;
+	if(2 == flag)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 
@@ -305,7 +330,7 @@ string OvenLogic::checkCurveIntegrity(long uid, int points,bool manualOrnot)
  *
  * 设置功能: 菜谱编号[0/1/2]，提示声[0/1]，帧序号[0]
  * */
-string OvenLogic::excuteCurveCmd(long uid, int points,bool manualOrnot)
+string OvenLogic::excuteCurveCmd(long uid, int points,bool manualOrnot,int flag)
 {
     string atcmd = IOTConstants::CMD_AT_MARK + "OVCEC" +
 				IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId +
@@ -314,6 +339,8 @@ string OvenLogic::excuteCurveCmd(long uid, int points,bool manualOrnot)
 				IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(manualOrnot) +
 				IOTConstants::PARAM_VALUE_SPLIT + "0" +
 				IOTConstants::CMD_AT_WRAP;
+	if(2 == flag)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 
@@ -324,7 +351,7 @@ string OvenLogic::excuteCurveCmd(long uid, int points,bool manualOrnot)
  *
  * 需要增加	帧序号[0]
  * */
-string OvenLogic::getMenuName(int menuNub,bool manualOrnot)
+string OvenLogic::getMenuName(int menuNub,bool manualOrnot,int flag)
 {
 //    ovenMenuInfo = new OvenMenuInfo();
     //ovenMenuInfo->setMenuNob(menuNub);
@@ -335,6 +362,8 @@ string OvenLogic::getMenuName(int menuNub,bool manualOrnot)
 				IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(manualOrnot) +
 				IOTConstants::PARAM_VALUE_SPLIT + "0" +
 				IOTConstants::CMD_AT_WRAP;
+	if(2 == flag)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 
@@ -343,7 +372,7 @@ string OvenLogic::getMenuName(int menuNub,bool manualOrnot)
  *
  * 设置功能: 菜谱编号[0/1/2/3]，子节点[0-9]，提示声[0/1]，帧序号[0-254]
  * */
-string OvenLogic::getMenuTemperatureExtend(int menuNub,int sub_node, int a_x ,bool manualOrnot)
+string OvenLogic::getMenuTemperatureExtend(int menuNub,int sub_node, int a_x ,bool manualOrnot,int flag)
 {
     string atcmd = IOTConstants::CMD_AT_MARK + "OVGTCEx" +
 				IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId +
@@ -354,6 +383,8 @@ string OvenLogic::getMenuTemperatureExtend(int menuNub,int sub_node, int a_x ,bo
     //				IOTConstants::PARAM_VALUE_SPLIT + device_fd +
 				IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(a_x) +
 				IOTConstants::CMD_AT_WRAP;
+	if(2 == flag)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 
@@ -363,7 +394,7 @@ string OvenLogic::getMenuTemperatureExtend(int menuNub,int sub_node, int a_x ,bo
  * 设置功能: 菜谱编号[0/1/2]，提示声[0/1]，帧序号[0]
  *
  * */
-string OvenLogic::cancelExcuteCurveCmd(long uid, int points, bool manualOrnot)
+string OvenLogic::cancelExcuteCurveCmd(long uid, int points, bool manualOrnot,int flag)
 {
     string atcmd = IOTConstants::CMD_AT_MARK + "OVCCE" +
 				IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId +
@@ -372,6 +403,8 @@ string OvenLogic::cancelExcuteCurveCmd(long uid, int points, bool manualOrnot)
 				IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(manualOrnot) +
 				IOTConstants::PARAM_VALUE_SPLIT + "0" +
 				IOTConstants::CMD_AT_WRAP;
+	if(2 == flag)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 /**
@@ -380,7 +413,7 @@ string OvenLogic::cancelExcuteCurveCmd(long uid, int points, bool manualOrnot)
  *设置功能: 菜谱编号[0/1/2]，暂停或继续[0/1],提示声[0/1]，帧序号[0]
  *
  * */
-string OvenLogic::pauseOrContinueCurve(long uid, int points,bool pause_or_continue, bool manualOrnot)
+string OvenLogic::pauseOrContinueCurve(long uid, int points,bool pause_or_continue, bool manualOrnot,int flag)
 {
     string atcmd = IOTConstants::CMD_AT_MARK + "OVPCC" +
 				IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId +
@@ -390,6 +423,8 @@ string OvenLogic::pauseOrContinueCurve(long uid, int points,bool pause_or_contin
 				IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(manualOrnot) +
 				IOTConstants::PARAM_VALUE_SPLIT + "0" +
 				IOTConstants::CMD_AT_WRAP;
+	if(2 == flag)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 

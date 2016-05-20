@@ -99,22 +99,25 @@ public:
     int getStatuRunTime();
     int getStatuNowTemperature();
     
-    string setFS(long uid, bool isOpen, bool manualOrnot);
-    string setKJ(bool isOpen, bool manualOrnot);
-    string setGJ(bool isOpen, bool manualOrnot);
-    string setZC(long uid, bool isOpen, bool manualOrnot);
-    string setD(long uid, bool isOpen, bool manualOrnot);
-    string setUDTubeTemperature(long uib, int temperatureUH, int temperatureUL, int temperatureMH, int temperatureML, int temperatureDH, int temperatureDL, bool manualOrnot);
-    string getZD(bool manualOrnot);
-    string getGN(bool manualOrnot);
-    string setMenuName(long uid, int nub ,int points, int timeA ,int timeB ,string nameASCII ,bool manualOrnot);
-    string setMenuTemperatureExtend(long uid, int points, int sub_node, int timeA,int timeB, int temperatureUH, int temperatureUL, int temperatureMH, int temperatureML, int temperatureDH, int temperatureDL, bool rotary_fork, bool fan_power, bool remind_suspend, bool time_effective, bool upper_tube_temperature_effective, bool middle_tube_temperature_effective, bool lower_tube_temperature_effective, bool rotary_fork_effective, bool fan_power_effective, bool remind_suspend_effective, int a_x, bool manualOrnot);
-    string checkCurveIntegrity(long uid, int points,bool manualOrnot);
-    string excuteCurveCmd(long uid, int points,bool manualOrnot);
-    string getMenuName(int menuNub,bool manualOrnot);
-    string getMenuTemperatureExtend(int menuNub,int sub_node, int a_x ,bool manualOrnot);
-    string cancelExcuteCurveCmd(long uid, int points,bool manualOrnot);
-    string pauseOrContinueCurve(long uid, int points,bool pause_or_continue, bool manualOrnot);
+    string setFS(long uid, bool isOpen, bool manualOrnot,int flag);
+    string setKJ(bool isOpen, bool manualOrnot,int flag);
+    string setGJ(bool isOpen, bool manualOrnot,int flag);
+    string setZC(long uid, bool isOpen, bool manualOrnot,int flag);
+    string setD(long uid, bool isOpen, bool manualOrnot,int flag);
+    string setUDTubeTemperature(long uib, int temperatureUH, int temperatureUL, int temperatureMH, int temperatureML, int temperatureDH, int temperatureDL, bool manualOrnot,int flag);
+    string getZD(bool manualOrnot,int flag);
+    string getGN(bool manualOrnot,int flag);
+    string setMenuName(long uid, int nub ,int points, int timeA ,int timeB ,string nameASCII ,bool manualOrnot,int flag);
+    string setMenuTemperatureExtend(long uid, int points, int sub_node, int timeA,int timeB, int temperatureUH, \
+        int temperatureUL, int temperatureMH, int temperatureML, int temperatureDH, int temperatureDL, bool rotary_fork,\
+        bool fan_power, bool remind_suspend, bool time_effective, bool upper_tube_temperature_effective, bool middle_tube_temperature_effective,\
+        bool lower_tube_temperature_effective, bool rotary_fork_effective, bool fan_power_effective, bool remind_suspend_effective, int a_x, bool manualOrnot,int flag);
+    string checkCurveIntegrity(long uid, int points,bool manualOrnot,int flag);
+    string excuteCurveCmd(long uid, int points,bool manualOrnot,int flag);
+    string getMenuName(int menuNub,bool manualOrnot,int flag);
+    string getMenuTemperatureExtend(int menuNub,int sub_node, int a_x ,bool manualOrnot,int flag);
+    string cancelExcuteCurveCmd(long uid, int points,bool manualOrnot,int flag);
+    string pauseOrContinueCurve(long uid, int points,bool pause_or_continue, bool manualOrnot,int flag);
     
     bool parseAtCommand(string result);
 };

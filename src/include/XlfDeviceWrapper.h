@@ -3,7 +3,7 @@
 //  Devices
 //
 //  Created by 肖芳亮 on 16/2/24.
-//  Copyright © 2016年 XLF. All rights reserved.
+//  Copyright ? 2016年 XLF. All rights reserved.
 //
 
 #ifndef XlfDeviceWrapper_h
@@ -24,7 +24,7 @@ private:
     /**
      * 获取设备控制类
      */
-    void* getDeviceControl(string deviceId);
+    void* getDeviceControl(const string &deviceId);
     
     /**
      * 获取wifi控制类
@@ -32,18 +32,22 @@ private:
     void* getWifiControl(string deviceId);
     
 public:
-    
+    /*
+        * 某一ID的设备类型
+        */
+    int getDeviceType(const string &deviceId);
+
     XlfDeviceWrapper();
     
     /**
      * 初始化设备的控制类
      */
-    bool initDevicesControl(string deviceId, int deviceType);
+   bool initDevicesControl(const string &deviceId, int deviceType);
     
     /**
      * 删除设备的控制类
      */
-    bool delDevicesControl(string deviceId);
+    bool delDevicesControl(const string &deviceId);
     
     
     /**************************  deviceControl  **************************/
@@ -136,7 +140,7 @@ public:
     /**
      *  解析 F4F5指令  错误情况下返回""  状态解析返回 "KTZD:SUCCEED"  功能解析返回 "KTGN:SUCCEED"  控制解析返回 "KTSET:SUCCEED" 或者 "KTSET:ERROR"
      */
-    string parseResult(string deviceId, string result);
+    string parseResult(const string &deviceId, const string &result);
     
     /**************************  airconditionControl  **************************/
     
@@ -2425,31 +2429,31 @@ public:
     /*********************************** Oven *******************************************/
     /****************** set ******************/
     // 烤箱开机
-    string setOvenPowerOn(string deivceId, bool isPowerOn, bool manualOrnot);
+    string setOvenPowerOn(string deivceId, bool isPowerOn, bool manualOrnot,int flag);
     
     // 烤箱关机
-    string setOvenPowerOff(string deivceId, bool isPowerOn, bool manualOrnot);
+    string setOvenPowerOff(string deivceId, bool isPowerOn, bool manualOrnot,int flag);
     
     // 风机开关
-    string setOvenFS(string deivceId, long uid, bool isOpen, bool manualOrnot);
+    string setOvenFS(string deivceId, long uid, bool isOpen, bool manualOrnot,int flag);
     
     // 转叉开关
-    string setOvenZC(string deivceId, long uid, bool isOpen, bool manualOrnot);
+    string setOvenZC(string deivceId, long uid, bool isOpen, bool manualOrnot,int flag);
     
     // 炉灯开关
-    string setOvenD(string deivceId, long uid, bool isOpen,bool manualOrnot);
+    string setOvenD(string deivceId, long uid, bool isOpen,bool manualOrnot,int flag);
     
     // 上下管温度设置
-    string setOvenUDTubeTemperature(string deivceId, long uid, int temperatureU, int temperatureM, int temperatureD ,bool manualOrnot);
+    string setOvenUDTubeTemperature(string deivceId, long uid, int temperatureU, int temperatureM, int temperatureD ,bool manualOrnot,int flag);
     
     // 状态查询
-    string getOvenStatus(string deivceId, bool manualOrnot);
+    string getOvenStatus(string deivceId, bool manualOrnot,int flag);
     
     // 功能查询
-    string getOvenGN(string deivceId, bool manualOrnot);
+    string getOvenGN(string deivceId, bool manualOrnot,int flag);
     
     // 设置菜单名字
-    string setOvenMenuName(string deivceId, long uid, int menuNub, int sub_node, int time, string name, bool manualOrnot);
+    string setOvenMenuName(string deivceId, long uid, int menuNub, int sub_node, int time, string name, bool manualOrnot,int flag);
     
     /**
      * 1.9	设置菜单温度命令扩展	新增		不确定AT指令顺序是否正确
@@ -2460,41 +2464,41 @@ public:
      * 上管温度有效设置位[0/1] ，下管温度有效设置位[0/1] ，转叉开关有效设置位[0/1]，
      * 风机开关有效设置位[0/1]，提醒暂停有效设置位[0/1]，提示声[0/1]，帧序号[0-254]
      * */
-    string setOvenMenuTemperatureExtend(string deivceId, long uid, int menuNub, int sub_node, int time, int temperatureU, int temperatureM, int temperatureD, bool rotary_fork, bool fan_power, bool remind_suspend, bool time_effective, bool upper_tube_temperature_effective, bool middle_tube_temperature_effective, bool lower_tube_temperature_effective, bool rotary_fork_effective, bool fan_power_effective, bool remind_suspend_effective, int a_x, bool manualOrnot);
+    string setOvenMenuTemperatureExtend(string deivceId, long uid, int menuNub, int sub_node, int time, int temperatureU, int temperatureM, int temperatureD, bool rotary_fork, bool fan_power, bool remind_suspend, bool time_effective, bool upper_tube_temperature_effective, bool middle_tube_temperature_effective, bool lower_tube_temperature_effective, bool rotary_fork_effective, bool fan_power_effective, bool remind_suspend_effective, int a_x, bool manualOrnot,int flag);
     
     /**
      * 	曲线完整性检查
      */
-    string setOvenCheckCurveIntegrity(string deivceId, long uid, int menuNub,bool manualOrnot);
+    string setOvenCheckCurveIntegrity(string deivceId, long uid, int menuNub,bool manualOrnot,int flag);
     
     /**
      * 	曲线执行命令
      */
-    string setOvenExcuteCurveCmd(string deivceId, long uid, int menuNub,bool manualOrnot);
+    string setOvenExcuteCurveCmd(string deivceId, long uid, int menuNub,bool manualOrnot,int flag);
     
     /**
      *  获取菜单名字
      */
-    string setOvenMenuName(string deivceId, int menuNub,bool manualOrnot);
+    string setOvenMenuName(string deivceId, int menuNub,bool manualOrnot,int flag);
     
     /**
      *   获取温度曲线扩展命令
      *   菜谱编号[0/1/2/3]，子节点[0-9]，提示声[0/1]，帧序号[0-254]
      */
-    string setOvenMenuTemperatureExtend(string deivceId, int menuNub,int sub_node, int a_x ,bool manualOrnot);
+    string setOvenMenuTemperatureExtend(string deivceId, int menuNub,int sub_node, int a_x ,bool manualOrnot,int flag);
     
     /**
      * 	曲线取消执行命令
      *  菜谱编号[0/1/2]，提示声[0/1]，帧序号[0]
      *
      */
-    string setOvenCancelExcuteCurveCmd(string deivceId, long uid, int menuNub ,bool manualOrnot);
+    string setOvenCancelExcuteCurveCmd(string deivceId, long uid, int menuNub ,bool manualOrnot,int flag);
     
     /**
      * 	曲线暂停-继续操作命令
      *  菜谱编号[0/1/2]，暂停或继续[0/1],提示声[0/1]，帧序号[0]
      */
-    string setOvenPauseOrContinueCurve(string deivceId, long uid, int menuNub,bool pause_or_continue, bool manualOrnot);
+    string setOvenPauseOrContinueCurve(string deivceId, long uid, int menuNub,bool pause_or_continue, bool manualOrnot,int flag);
     
     /****************** getStatus ******************/
     // 获取烤箱uid

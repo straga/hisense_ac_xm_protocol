@@ -14,6 +14,7 @@ OvenControl::OvenControl(string devid)
 {
     manualOrnot = true;
     ovenControlLogic = new OvenLogic();
+//	cout<<"Create OvenControl,ovenControlLogic is "<<ovenControlLogic<<endl;
     ovenControlLogic->deviceId = devid;
     ovenControlLogic->deviceType = "oven";
     devicesLogic = ovenControlLogic;
@@ -55,38 +56,38 @@ string OvenControl::stringToAscii(string value)
 // 设置各个功能状态
 //目前不支持烤箱开关机功能
 //1烤箱开机
-string OvenControl::setPowerOn(bool isPowerOn, bool manualOrnot)
+string OvenControl::setPowerOn(bool isPowerOn, bool manualOrnot,int flag)
 {
-    return ovenControlLogic->setKJ(isPowerOn, manualOrnot);
+    return ovenControlLogic->setKJ(isPowerOn, manualOrnot,flag);
 }
 
 //2烤箱关机
-string OvenControl::setPowerOff(bool isPowerOn, bool manualOrnot)
+string OvenControl::setPowerOff(bool isPowerOn, bool manualOrnot,int flag)
 {
-    return ovenControlLogic->setGJ(isPowerOn, manualOrnot);
+    return ovenControlLogic->setGJ(isPowerOn, manualOrnot,flag);
 }
 
 /**
  * 1.1	风机开关
  * */
-string OvenControl::setFS(long uid, bool isOpen, bool manualOrnot)
+string OvenControl::setFS(long uid, bool isOpen, bool manualOrnot,int flag)
 {
-    return ovenControlLogic->setFS(uid, isOpen, manualOrnot);
+    return ovenControlLogic->setFS(uid, isOpen, manualOrnot,flag);
 }
 
 /**
  * 1.2	转叉开关
  * */
-string OvenControl::setZC(long uid, bool isOpen, bool manualOrnot)
+string OvenControl::setZC(long uid, bool isOpen, bool manualOrnot,int flag)
 {
-    return ovenControlLogic->setZC(uid, isOpen, manualOrnot);
+    return ovenControlLogic->setZC(uid, isOpen, manualOrnot,flag);
 }
 /**
  *  1.3	炉灯开关
  * */
-string OvenControl::setD(long uid, bool isOpen,bool manualOrnot)
+string OvenControl::setD(long uid, bool isOpen,bool manualOrnot, int flag)
 {
-    return ovenControlLogic->setD(uid, isOpen, manualOrnot);
+    return ovenControlLogic->setD(uid, isOpen, manualOrnot,flag);
 }
 /**
  * 1.4	上下管温度设置	新增
@@ -94,7 +95,7 @@ string OvenControl::setD(long uid, bool isOpen,bool manualOrnot)
  * 设置功能: 上管温度-高位[暂时为 0], 上管温度-低位[40~230]，下管温度-高位[暂时为 0],
  * 下管温度-低位[40~230]，提示声[0/1]
  * */
-string OvenControl::setUDTubeTemperature(long uid, int temperatureU, int temperatureM, int temperatureD ,bool manualOrnot){
+string OvenControl::setUDTubeTemperature(long uid, int temperatureU, int temperatureM, int temperatureD ,bool manualOrnot,int flag){
     int tempU_H, tempU_L, tempD_H, tempD_L, tempM_H, tempM_L;
     tempU_H = temperatureU >> 8;
     tempU_L = temperatureU & 0xFF;
@@ -103,7 +104,7 @@ string OvenControl::setUDTubeTemperature(long uid, int temperatureU, int tempera
     tempM_H = temperatureM >> 8;
     tempM_L = temperatureM & 0xFF;
     
-    return ovenControlLogic->setUDTubeTemperature(uid, tempU_H, tempU_L, tempM_H, tempM_L, tempD_H, tempD_L, manualOrnot);
+    return ovenControlLogic->setUDTubeTemperature(uid, tempU_H, tempU_L, tempM_H, tempM_L, tempD_H, tempD_L, manualOrnot,flag);
 }
 
 /**
@@ -117,17 +118,17 @@ string OvenControl::setUDTubeTemperature(long uid, int temperatureU, int tempera
 /**
  * 8.5	状态查询
  * */
-string OvenControl::getStatus(bool manualOrnot)
+string OvenControl::getStatus(bool manualOrnot,int flag)
 {
-    return ovenControlLogic->getZD(manualOrnot);
+    return ovenControlLogic->getZD(manualOrnot,flag);
 }
 
 /**
 * 1.6 	功能查询
 * */
-string OvenControl::getGN(bool manualOrnot)
+string OvenControl::getGN(bool manualOrnot,int flag)
 {
-    return ovenControlLogic->getGN(manualOrnot);
+    return ovenControlLogic->getGN(manualOrnot,flag);
 }
 
 /**
@@ -136,20 +137,20 @@ string OvenControl::getGN(bool manualOrnot)
  * 设置功能: 菜谱编号[0/1/2]，温度曲线个数[0-9]，总烧烤时间-高位，总烧烤时间-低位，
  * 菜单名字[字符对应的 ascii 码，最大 64 个字符],提示声[0/1]，帧序号[0]
  * */
-string OvenControl::setMenuName(long uid, int menuNub, int sub_node, int time, string name, bool manualOrnot)
+string OvenControl::setMenuName(long uid, int menuNub, int sub_node, int time, string name, bool manualOrnot,int flag)
 {
     int time_H, time_L;
     time_H = time >> 8;
     time_L = time & 0xFF;
     
     string menuName = stringToAscii(name);
-    return ovenControlLogic->setMenuName(uid, menuNub, sub_node, time_H, time_L, menuName, manualOrnot);
+    return ovenControlLogic->setMenuName(uid, menuNub, sub_node, time_H, time_L, menuName, manualOrnot,flag);
 }
 
 /**
  * 1.9	设置菜单温度命令扩展	新增		不确定AT指令顺序是否正确
  * */
-string OvenControl::setMenuTemperatureExtend(long uid, int menuNub, int sub_node, int time, int temperatureU, int temperatureM, int temperatureD, bool rotary_fork, bool fan_power, bool remind_suspend, bool time_effective, bool upper_tube_temperature_effective, bool middle_tube_temperature_effective, bool lower_tube_temperature_effective, bool rotary_fork_effective, bool fan_power_effective, bool remind_suspend_effective,int a_x, bool manualOrnot)
+string OvenControl::setMenuTemperatureExtend(long uid, int menuNub, int sub_node, int time, int temperatureU, int temperatureM, int temperatureD, bool rotary_fork, bool fan_power, bool remind_suspend, bool time_effective, bool upper_tube_temperature_effective, bool middle_tube_temperature_effective, bool lower_tube_temperature_effective, bool rotary_fork_effective, bool fan_power_effective, bool remind_suspend_effective,int a_x, bool manualOrnot,int flag)
 {
     int time_H, time_L;
     int tempU_H, tempU_L, tempD_H, tempD_L, tempM_H, tempM_L;
@@ -166,38 +167,38 @@ string OvenControl::setMenuTemperatureExtend(long uid, int menuNub, int sub_node
 
     return ovenControlLogic->setMenuTemperatureExtend(uid, menuNub, sub_node, time_H, time_L, tempU_H, tempU_L, tempM_H, tempM_L, tempD_H, tempD_L, rotary_fork, fan_power, remind_suspend, time_effective,
         upper_tube_temperature_effective, middle_tube_temperature_effective, lower_tube_temperature_effective,
-        rotary_fork_effective, fan_power_effective, remind_suspend_effective, a_x, manualOrnot);
+        rotary_fork_effective, fan_power_effective, remind_suspend_effective, a_x, manualOrnot,flag);
 }
 /**
  * 1.10	曲线完整性检查	新增
  * */
-string OvenControl::checkCurveIntegrity(long uid, int menuNub,bool manualOrnot)
+string OvenControl::checkCurveIntegrity(long uid, int menuNub,bool manualOrnot,int flag)
 {
-    return ovenControlLogic->checkCurveIntegrity(uid, menuNub, manualOrnot);
+    return ovenControlLogic->checkCurveIntegrity(uid, menuNub, manualOrnot,flag);
 }
 /**
  * 1.11	曲线执行命令	新增
  * */
-string OvenControl::excuteCurveCmd(long uid, int menuNub,bool manualOrnot)
+string OvenControl::excuteCurveCmd(long uid, int menuNub,bool manualOrnot,int flag)
 {
-   return ovenControlLogic->excuteCurveCmd(uid, menuNub, manualOrnot);
+   return ovenControlLogic->excuteCurveCmd(uid, menuNub, manualOrnot,flag);
 }
 
 /**
  * 1.13	获取菜单名字
  * */
-string OvenControl::getMenuName(int menuNub,bool manualOrnot)
+string OvenControl::getMenuName(int menuNub,bool manualOrnot,int flag)
 {
-    return ovenControlLogic->getMenuName(menuNub,manualOrnot);
+    return ovenControlLogic->getMenuName(menuNub,manualOrnot,flag);
 }
 
 
 /**
  * 1.15	获取温度曲线扩展命令	新增	
  * */
-string OvenControl::getMenuTemperatureExtend(int menuNub,int sub_node, int a_x ,bool manualOrnot)
+string OvenControl::getMenuTemperatureExtend(int menuNub,int sub_node, int a_x ,bool manualOrnot,int flag)
 {
-    return ovenControlLogic->getMenuTemperatureExtend( menuNub, sub_node, a_x, manualOrnot);
+    return ovenControlLogic->getMenuTemperatureExtend( menuNub, sub_node, a_x, manualOrnot,flag);
 }
 
 /**
@@ -206,9 +207,9 @@ string OvenControl::getMenuTemperatureExtend(int menuNub,int sub_node, int a_x ,
  * 设置功能: 菜谱编号[0/1/2]，提示声[0/1]，帧序号[0]
  * 
  * */
-string OvenControl::cancelExcuteCurveCmd(long uid, int menuNub ,bool manualOrnot)
+string OvenControl::cancelExcuteCurveCmd(long uid, int menuNub ,bool manualOrnot,int flag)
 {
-    return ovenControlLogic->cancelExcuteCurveCmd(uid, menuNub, manualOrnot);
+    return ovenControlLogic->cancelExcuteCurveCmd(uid, menuNub, manualOrnot,flag);
 }
 /**
  * 1.17	曲线暂停-继续操作命令	新增	
@@ -216,9 +217,9 @@ string OvenControl::cancelExcuteCurveCmd(long uid, int menuNub ,bool manualOrnot
  *设置功能: 菜谱编号[0/1/2]，暂停或继续[0/1],提示声[0/1]，帧序号[0]
  * 
  * */
-string OvenControl::pauseOrContinueCurve(long uid, int menuNub,bool pause_or_continue, bool manualOrnot){
+string OvenControl::pauseOrContinueCurve(long uid, int menuNub,bool pause_or_continue, bool manualOrnot,int flag){
     
-    return ovenControlLogic->pauseOrContinueCurve(uid, menuNub, pause_or_continue,  manualOrnot);
+    return ovenControlLogic->pauseOrContinueCurve(uid, menuNub, pause_or_continue,  manualOrnot,flag);
 }
 
 /********************

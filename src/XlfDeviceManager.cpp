@@ -3,7 +3,7 @@
 //  Devices
 //
 //  Created by 肖芳亮 on 16/2/24.
-//  Copyright © 2016年 XLF. All rights reserved.
+//  Copyright ? 2016年 XLF. All rights reserved.
 //
 
 #include "XlfDeviceManager.h"
@@ -30,7 +30,7 @@ XlfDeviceManager &XlfDeviceManager::getInstance()
 /**
  * 创建设备控制信息类
  */
-bool XlfDeviceManager::initDeviceControl(string deviceId, int deviceType)
+bool XlfDeviceManager::initDeviceControl(const string &deviceId, int deviceType)
 {
     try
     {
@@ -43,7 +43,7 @@ bool XlfDeviceManager::initDeviceControl(string deviceId, int deviceType)
 
         if(NULL == deviceInfo)
         {
-            deviceInfo = new XlfDeviceInfo();
+            deviceInfo = new XlfDeviceInfo(deviceType);
             if(deviceType == 0x01)
             {
                 deviceInfo->deviceControl = new AirconditionControl(deviceId);// 空调
@@ -96,6 +96,7 @@ bool XlfDeviceManager::initDeviceControl(string deviceId, int deviceType)
             }
             else
             {
+            	delete deviceInfo;
                 cout<< TAG << "init deviceControl failed,no device with type " <<deviceType  <<endl;
                 return false;
             }
@@ -123,7 +124,7 @@ bool XlfDeviceManager::initDeviceControl(string deviceId, int deviceType)
 /**
  *  删除设备控制信息类
  */
-bool XlfDeviceManager::deleteDeviceControl(string deviceId)
+bool XlfDeviceManager::deleteDeviceControl(const string &deviceId)
 {
     try
     {
@@ -157,7 +158,7 @@ bool XlfDeviceManager::deleteDeviceControl(string deviceId)
 /**
  *  获取单个设备控制信息类
  */
-XlfDeviceInfo* XlfDeviceManager::getDeviceInfo(string deviceId)
+XlfDeviceInfo* XlfDeviceManager::getDeviceInfo(const string &deviceId)
 {
     try
     {
