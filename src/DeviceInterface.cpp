@@ -33,11 +33,9 @@ DeviceInterface::~DeviceInterface()
 string DeviceInterface::device_parse(const string &deviceId, const string &data)
 {
 	JSONObject jsonRet;
-	return devWrapper.parseResult(deviceId,data);
-	#if 0
+	string resultStr = devWrapper.parseResult(deviceId,data);
 	jsonRet.putString(RESULT_KEY,"OVENSET");
 	jsonRet.putString(RESULT_KEY,"SUCCEED");
-	#endif
 	return jsonRet.toString();
 }
 
@@ -53,6 +51,9 @@ string DeviceInterface::device_set(const string &deviceId,const string &jsonCmd)
 		return "{Not support}";
 	case T_OVEN:
 		deviceCmd = handleOvenCmd(deviceId,jsonCmd);
+	break;
+	case T_SEED_MACHINE:
+		deviceCmd = handleSeedCmd(deviceId,jsonCmd);
 	break;
 	default:
 		deviceCmd = "{Not support}";
@@ -71,6 +72,31 @@ string DeviceInterface::device_get(const string &deviceId,const string &jsonCmd)
 	if(funcStr == "getDeveiceVersion"){
 		versionStr = devWrapper.getAirconHaveIRContrl(deviceId);
 	}
+	else if(funcStr == "getOvenStatuRunTime"){
+		//»ñÈ¡ºæ¿¾Ê±¼ä
+		versionStr = devWrapper.getOvenStatuRunTime(deviceId);
+	}
+	else if(funcStr == "getOvenStatuNowTemp"){
+		//»ñÈ¡ºæ±ºÎÂ¶È
+		versionStr = devWrapper.getOvenStatuNowTemperature(deviceId);
+	}
+	else if(funcStr == "getOvenStatuYR"){
+		//»ñÈ¡Ô¤ÈÈ×´Ì¬
+		versionStr = devWrapper.getOvenStatuYR(deviceId);
+	}
+	else if(funcStr == "getOvenUid"){
+		//»ñÈ¡¿¾Ïäuid
+		versionStr = devWrapper.getOvenUid(deviceId);
+	}
+	else if(funcStr == "getOvenStatuMenuNub"){
+		//»ñÈ¡ÕýÔÚºæ±ºµÄÇúÏß
+		versionStr = devWrapper.getOvenStatuMenuNub(deviceId);
+	}
+	else if(funcStr == "getOvenStatuKJ"){
+		//»ñÈ¡¿¾Ïä¿ª¹Ø×´Ì¬
+		versionStr = devWrapper.getOvenStatuKJ(deviceId);
+	}
+	
 	jsonRet.putString(VALUE_KEY,versionStr);
 	return jsonRet.toString();
 }
@@ -86,23 +112,24 @@ string DeviceInterface::handleOvenCmd(const string &deviceId,const string &jsonC
 	unsigned uid;
 	func = jsCmdObj.getString(FUNC_KEY);
 	
-	cout <<FUNC_KEY<<"is:"<<func<<endl;
+
 	if(func == ""){
 		return jsonRet.putString(RESULT_KEY,"cmd not found").toString();
 	}
 	
-	// flag = jsCmdObj.getNumber(FLAG_KEY);
 	manual = jsCmdObj.getNumber(SOUND_KEY) == 1 ? : 0;
 	flag = (jsCmdObj.getNumber(FLAG_KEY)==1) ? 1:2;
 	
-	cout <<SOUND_KEY <<manual<<endl;
+
 	if("setOvenPowerOn" == func){
-		//return devWrapper.setOvenPowerOn(deviceId,1,manual);
 		return devWrapper.setOvenPowerOn(deviceId,1,manual,flag);
 		
 	}else if("setOvenPowerOff" == func){
-		//return devWrapper.setOvenPowerOn(deviceId,0,manual);
 		return devWrapper.setOvenPowerOff(deviceId,0,manual,flag);
+		
+	}else if("getOvenSoftVer" == func){
+		//²éÑ¯£¨¹Ì¼þ£©°æ±¾ºÅ
+		return devWrapper.sendQueryVersion(deviceId,flag);
 		
 	}else if("setOvenFS" == func){
 		//·ç»ú¿ª¹Ø
@@ -110,6 +137,30 @@ string DeviceInterface::handleOvenCmd(const string &deviceId,const string &jsonC
 		int set = jsCmdObj.getNumber("FanPower");
 		cout<<"UID :"<<uid<<",set:"<<set<<endl;
 		return devWrapper.setOvenFS(deviceId,uid,set,manual,flag);
+		
+	}else if("setOvenZC" == func){
+		//×ª²æ¿ª¹Ø
+		uid = jsCmdObj.getNumber("UID");
+		int RotaryFork = jsCmdObj.getNumber("RotaryFork");
+		cout<<"UID :"<<uid<<",RotaryFork:"<<RotaryFork<<endl;
+		return devWrapper.setOvenZC(deviceId, uid, RotaryFork, manual,flag);
+		
+	}else if("setOvenUDTubeTemp" == func){
+		//ÉÏ¡¢ÖÐ¡¢ÏÂ¹ÜÎÂ¶ÈÉèÖÃ
+		uid = jsCmdObj.getNumber("UID");
+		int UpTemp = jsCmdObj.getNumber("UpTemp");
+		int MidTemp = jsCmdObj.getNumber("MidTemp");
+		int DownTemp = jsCmdObj.getNumber("DownTemp");
+		
+		cout<<"UID :"<<uid<<",UpTemp:"<<UpTemp<<",MidTemp:"<<MidTemp<<",DownTemp:"<<DownTemp<<endl;
+		return devWrapper.setOvenUDTubeTemperature(deviceId,uid,UpTemp,MidTemp,DownTemp,manual,flag);
+	}else if("getOvenStatus" == func){
+		//×´Ì¬²éÑ¯
+		return devWrapper.getOvenStatus(deviceId, manual,flag);
+
+	}else if("getOvenGN" == func){
+		//¹¦ÄÜ²éÑ¯
+		return devWrapper.getOvenGN(deviceId, manual,flag);
 		
 	}else if("setOvenMenuName" == func){
 		//ÉèÖÃ²Ëµ¥Ãû×Ö
@@ -122,7 +173,7 @@ string DeviceInterface::handleOvenCmd(const string &deviceId,const string &jsonC
 		cout<<"UID :"<<uid<<",menuNub:"<<menuNub<<",sub_node:"<<sub_node<<",time:"<<time<<",name:"<<name<<endl;
 		return devWrapper.setOvenMenuName(deviceId,uid,menuNub,sub_node,time,name,manual,flag);
 		
-	}else if("setOvenFS" == func){
+	}else if("setOvenMenuTempExt" == func){
 		//ÉèÖÃ²Ëµ¥ÎÂ¶ÈÃüÁîÀ©Õ¹
 		uid = jsCmdObj.getNumber("UID");
 		int menuNub = jsCmdObj.getNumber("MenuIdx");
@@ -171,7 +222,7 @@ string DeviceInterface::handleOvenCmd(const string &deviceId,const string &jsonC
 		cout<<"UID :"<<uid<<",menuNub:"<<menuNub<<endl;
 		return devWrapper.setOvenCheckCurveIntegrity(deviceId,uid,menuNub,manual,flag);
 	
-	}else if("setOvenFS" == func){
+	}else if("OvenExcuteCurve" == func){
 		//Ô¤ÈÈ¿¾Ïä,ÇúÏßÖ´ÐÐÃüÁî
 		uid = jsCmdObj.getNumber("UID");
 		int menuNub = jsCmdObj.getNumber("MenuIdx");
@@ -186,6 +237,16 @@ string DeviceInterface::handleOvenCmd(const string &deviceId,const string &jsonC
 		
 		cout<<"UID :"<<uid<<",LampSet:"<<LampSet<<endl;
 		return devWrapper.setOvenD(deviceId,uid,LampSet,manual,flag);
+		
+	}else if("getOvenMenuTempExt" == func){
+		//»ñÈ¡ÎÂ¶ÈÇúÏßÀ©Õ¹ÃüÁî
+		uid = jsCmdObj.getNumber("UID");
+		int menuNub = jsCmdObj.getNumber("MenuIdx");
+		int sub_node = jsCmdObj.getNumber("CurveIdx");
+		int FrameNo = jsCmdObj.getNumber("FrameNo");
+		
+		cout<<"UID :"<<uid<<",menuNub:"<<menuNub<<endl;
+		return devWrapper.setOvenMenuTemperatureExtend(deviceId,menuNub,sub_node,FrameNo,manual,flag);
 
 	}else if("OvenPOrCCurve" == func){
 		//ÇúÏßÔÝÍ£
@@ -212,7 +273,96 @@ string DeviceInterface::handleOvenCmd(const string &deviceId,const string &jsonC
 		return devWrapper.setOvenMenuName(deviceId, menuNub,manual,flag);
 	
 	}else{
-	//	return jsonRet.putString(RESULT_KEY,"cmd not support").toString();
+		return jsonRet.putString(RESULT_KEY,"cmd not support\r\n").toString();
+	}
+	return "";
+}
+
+
+string DeviceInterface::handleSeedCmd(const string &deviceId,const string &jsonCmd)
+{
+	string cmdVersion,func,reusltStr;
+	int manual,flag=0;
+	JSONObject jsCmdObj(jsonCmd);
+	JSONObject jsonRet;
+	
+	func = jsCmdObj.getString(FUNC_KEY);
+	
+
+	if(func == ""){
+		return jsonRet.putString(RESULT_KEY,"cmd not found\r\n").toString();
+	}
+	
+	manual = jsCmdObj.getNumber(SOUND_KEY) == 1 ? : 0;
+	flag = (jsCmdObj.getNumber(FLAG_KEY)==1) ? 1:2;
+	
+
+	if("setSeedPower" == func){
+		//¿ª¹Ø»ú
+		int set = jsCmdObj.getNumber("Power");
+
+		return devWrapper.setSeedMachinePower(deviceId,set,flag);
+		
+	}else if("setSeedLightTimer" == func){
+		//ÊµÊ±¶¨Ê±
+		int curhour = jsCmdObj.getNumber("RTSetHour");
+		int curmin = jsCmdObj.getNumber("RTSetMins");
+		int set = jsCmdObj.getNumber("TimingSet");
+		int onOroff = jsCmdObj.getNumber("LTiming");
+		int hour = jsCmdObj.getNumber("TimingH");
+		int min = jsCmdObj.getNumber("TimingM");
+		int lights = jsCmdObj.getNumber("LightNUM");
+		
+
+		return devWrapper.setSeedMachineLightTimer(deviceId,curhour,curmin,set,
+			onOroff,hour,min,lights,flag);
+		
+	}else if("disMissWarn" == func){
+		//¹Ø±Õ±¨¾¯
+		int num = jsCmdObj.getNumber("CancelWarning");
+		int level=0,pump=0,nutrition=0;
+		
+		if(num&0x1)
+			nutrition=1;
+		if(num&0x2)
+			pump=1;
+		if(num&0x4)
+			level=1;
+		
+		return devWrapper.setSeedMachineDismissWarning(deviceId,level,pump,nutrition,flag);
+		
+	}else if("setSeedLight" == func){
+		//ÉèÖÃµÆ¿ª¹Ø
+		int set = jsCmdObj.getNumber("Light");
+		
+		return devWrapper.setSeedMachineLight(deviceId,set,flag);
+
+	}else if("setSeedAnion" == func){
+		//ÉèÖÃ¸ºÀë×Ó¿ª¹Ø
+		int set = jsCmdObj.getNumber("Anion");
+		
+		return devWrapper.setSeedMachineAnion(deviceId,set,flag);
+	
+	}else if("setSeedMusic" == func){
+		//ÉèÖÃÒôÀÖ¿ª¹Ø
+		int set = jsCmdObj.getNumber("Music");
+		
+		return devWrapper.setSeedMachineMusic(deviceId,set,flag);
+		
+	}else if("setSeedVolume" == func){
+		//ÒôÁ¿¿ØÖÆ
+		int set = jsCmdObj.getNumber("Volume");
+		
+		return devWrapper.setSeedMachineVolume(deviceId,set,flag);
+			
+	}else if("setSeedPm25" == func){
+		//ÉèÖÃPM2.5¿ª¹Ø
+		int set = jsCmdObj.getNumber("SetPm25");
+		
+		return devWrapper.setSeedMachinePm25(deviceId,set,flag);
+									
+	}else{
+		return jsonRet.putString(RESULT_KEY,"cmd not support\r\n").toString();
 	}
 	return "";
 }

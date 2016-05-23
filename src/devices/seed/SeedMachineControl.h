@@ -31,7 +31,7 @@ public:
      * 开关机
      * @param set
      */
-    string setPower(int set);
+    string setPower(int set,int flag);
     
     /**
      *
@@ -43,44 +43,44 @@ public:
      * @param min	 定时分钟（0~59）
      * @param lights  which layer lights to be set. Just like set parameter in function setLight()
      */
-    string setLightTimer(int curhour,int curmin,int set,int onOroff,int hour,int min,int lights);
+    string setLightTimer(int curhour,int curmin,int set,int onOroff,int hour,int min,int lights,int flag);
     
     /**
      * 关闭报警
      * @param level 水位报警,pump 水泵报警，nutrition 营养液报警
      */
-    string dismissWarning(int level, int pump,int nutrition);
+    string dismissWarning(int level, int pump,int nutrition,int flag);
     
     /**
      * 设置灯开关：
      * 1 开灯，0 关灯
      */
-    string setLight(int set);
+    string setLight(int set,int flag);
     
     
     /**
      * 设置负离子开关：
      * 1 开，0 关
      */
-    string setAnion(int set);
+    string setAnion(int set,int flag);
     
     /**
      * 设置音乐开关：
      * 1 开，0 关
      */
-    string setMusic(int set);
+    string setMusic(int set,int flag);
     
     /**
      * 音量控制
      * @param volume 1：音量+; 0：音量减
      */
-    string setVolume(int volume);
+    string setVolume(int volume,int flag);
     
     /**
      * 设置PM2.5开关：如果有外接传感器的情况下才有此功能hasExtralSensor()方法可获得
      * 1 开，0 关
      */
-    string setPm25(int set);
+    string setPm25(int set,int flag);
     
     /*************************** 获取设备状态接口 *************************/
     /**

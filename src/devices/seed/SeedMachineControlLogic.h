@@ -46,43 +46,43 @@ public:
     /**
      * 电源开关
      */
-    string setPower(int set);
+    string setPower(int set,int flag);
     
     /**
      * 灯开关
      */
-    string setLight(int set);
+    string setLight(int set,int flag);
     
     /**
      * 音乐切换
      */
-    string setMusic(int set);
+    string setMusic(int set,int flag);
     
     /**
      * 音量控制
      */
-    string setVolume(int volume);
+    string setVolume(int volume,int flag);
     
     /**
      * 负离子开关
      */
-    string setAnion(int set);
+    string setAnion(int set,int flag);
     
     /**
      * 定时
      */
-    string setLightTimer(int curhour,int curmin,int set,int onOroff,int hour,int min,int lights);
+    string setLightTimer(int curhour,int curmin,int set,int onOroff,int hour,int min,int lights,int flag);
     
     /**
      * 关闭报警
      */
-    string dismissWarning(int level, int pump,int nutrition);
+    string dismissWarning(int level, int pump,int nutrition,int flag);
     
     /**
      * 设置PM2.5开关：如果有外接传感器的情况下才有此功能hasExtralSensor()方法可获得
      * 1 开，0 关
      */
-    string setPm25(int set);
+    string setPm25(int set,int flag);
     
     /*************************** 获取设备状态接口 *************************/
     /**

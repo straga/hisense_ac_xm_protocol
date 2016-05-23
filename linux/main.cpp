@@ -56,6 +56,11 @@ int main(int argc,char **argv){
 		cout<<devInterface->device_set(deviceId,"{\"Ver\" : \"1.0\", \"Func\" : \"OvenCancelExcuteCurve\" , \"Cmd\" : \"OVCCE\" , \"UID\" : 657895623 , \"MenuIdx\" : 0 , \"SoundSet\" : 1 , \"Flag\" : 1}");
 		cout<<devInterface->device_set(deviceId,"{\"Ver\" : \"1.0\", \"Func\" : \"getOvenMenuName\" , \"Cmd\" : \"OVGMN\" , \"MenuIdx\" : 0 , \"SoundSet\" : 1 , \"Flag\" : 1}");
 
+
+
+		deviceId = "SEEDMACHINE";
+		devInterface->device_init(deviceId,0x28);
+		cout<<devInterface->device_set(deviceId,"{\"Ver\" : \"1.0\", \"Func\" : \"setSeedMachinePower\" ,\"Flag\" : 1}");
 	}
 	cout<<string("")<<endl;
 #endif	

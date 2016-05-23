@@ -23,7 +23,8 @@ using namespace std;
 class DeviceInterface{
     enum {
         T_AIRCONDITIONER=1,
-        T_OVEN=0x27
+        T_OVEN=0x27,
+        T_SEED_MACHINE = 0x28,
     };
     static DeviceInterface *instance;
     DeviceInterface()  {}
@@ -34,6 +35,7 @@ class DeviceInterface{
 
 
     string handleOvenCmd(const string &deviceId,const string &jsonCmd);
+    string handleSeedCmd(const string &deviceId,const string &jsonCmd);
 public:   
     static DeviceInterface* getInstance();
    /**

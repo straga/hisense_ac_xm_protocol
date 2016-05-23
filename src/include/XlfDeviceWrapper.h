@@ -2073,7 +2073,7 @@ public:
      * 开关机
      * @param set
      */
-    string setSeedMachinePower(string deviceId, int set);
+    string setSeedMachinePower(string deviceId, int set,int flag);
     
     /**
      *
@@ -2085,44 +2085,44 @@ public:
      * @param min	 定时分钟（0~59）
      * @param lights  which layer lights to be set. Just like set parameter in function setLight()
      */
-    string setSeedMachineLightTimer(string deviceId, int curhour,int curmin,int set,int onOroff,int hour,int min,int lights);
+    string setSeedMachineLightTimer(string deviceId, int curhour,int curmin,int set,int onOroff,int hour,int min,int lights,int flag);
     
     /**
      * 关闭报警
      * @param level 水位报警,pump 水泵报警，nutrition 营养液报警
      */
-    string setSeedMachineDismissWarning(string deviceId, int level, int pump,int nutrition);
+    string setSeedMachineDismissWarning(string deviceId, int level, int pump,int nutrition,int flag);
     
     /**
      * 设置灯开关：
      * 1 开灯，0 关灯
      */
-    string setSeedMachineLight(string deviceId, int set);
+    string setSeedMachineLight(string deviceId, int set,int flag);
     
     
     /**
      * 设置负离子开关：
      * 1 开，0 关
      */
-    string setSeedMachineAnion(string deviceId, int set);
+    string setSeedMachineAnion(string deviceId, int set,int flag);
     
     /**
      * 设置音乐开关：
      * 1 开，0 关
      */
-    string setSeedMachineMusic(string deviceId, int set);
+    string setSeedMachineMusic(string deviceId, int set,int flag);
     
     /**
      * 音量控制
      * @param volume 1：音量+; 0：音量减
      */
-    string setSeedMachineVolume(string deviceId, int volume);
+    string setSeedMachineVolume(string deviceId, int volume,int flag);
     
     /**
      * 设置PM2.5开关：如果有外接传感器的情况下才有此功能hasExtralSensor()方法可获得
      * 1 开，0 关
      */
-    string setSeedMachinePm25(string deviceId, int set);
+    string setSeedMachinePm25(string deviceId, int set,int flag);
     
     /*************************** 获取设备状态接口 *************************/
     /**

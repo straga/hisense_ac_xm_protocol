@@ -65,11 +65,14 @@ bool SeedMachineControlLogic::GetNeedUpdateStatus()
  * @param set
  * @return
  */
-string SeedMachineControlLogic::setPower(int set)
+string SeedMachineControlLogic::setPower(int set,int flag)
 {
     ZD[0]=set >0 ?"1":"0";
-    return IOTConstants::CMD_AT_MARK + CMD_AT_POWER + IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId
+    string atCmd = IOTConstants::CMD_AT_MARK + CMD_AT_POWER + IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId
 				+ IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(set) + IOTConstants::CMD_AT_WRAP;
+	if(2 == flag)
+		return atCmd;
+	return createNetBytes(atCmd);
 }
 
 /**
@@ -77,21 +80,27 @@ string SeedMachineControlLogic::setPower(int set)
  * @param set
  * @return
  */
-string SeedMachineControlLogic::setLight(int set)
+string SeedMachineControlLogic::setLight(int set,int flag)
 {
-    return IOTConstants::CMD_AT_MARK + CMD_AT_LIGHT + IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId
+     string atCmd = IOTConstants::CMD_AT_MARK + CMD_AT_LIGHT + IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId
 				+ IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(set)+IOTConstants::CMD_AT_WRAP;
+	 if(flag == 2)
+	 	return atCmd;
+	 return createNetBytes(atCmd);
 }
 
 /**
  * 音乐切换
  * @return
  */
-string SeedMachineControlLogic::setMusic(int set)
+string SeedMachineControlLogic::setMusic(int set,int flag)
 {
-    return IOTConstants::CMD_AT_MARK + CMD_AT_MUSIC + IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId
+    string atCmd = IOTConstants::CMD_AT_MARK + CMD_AT_MUSIC + IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId
 				+ IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(set)
 				+IOTConstants::CMD_AT_WRAP;
+	 if(flag == 2)
+	 	return atCmd;
+	 return createNetBytes(atCmd);
 }
 
 /**
@@ -99,11 +108,14 @@ string SeedMachineControlLogic::setMusic(int set)
  * @param volume 1：音量+; 0：音量减
  * @return
  */
-string SeedMachineControlLogic::setVolume(int volume)
+string SeedMachineControlLogic::setVolume(int volume,int flag)
 {
-    return IOTConstants::CMD_AT_MARK + "SEEDVSet" + IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId
+    string atCmd = IOTConstants::CMD_AT_MARK + "SEEDVSet" + IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId
 				+ IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(volume)
 				+IOTConstants::CMD_AT_WRAP;
+	 if(flag == 2)
+	 	return atCmd;
+	 return createNetBytes(atCmd);
 }
 
 /**
@@ -111,10 +123,13 @@ string SeedMachineControlLogic::setVolume(int volume)
  * @param set
  * @return
  */
-string SeedMachineControlLogic::setAnion(int set)
+string SeedMachineControlLogic::setAnion(int set,int flag)
 {
-    return IOTConstants::CMD_AT_MARK + CMD_AT_ANION + IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId
+    string atCmd = IOTConstants::CMD_AT_MARK + CMD_AT_ANION + IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId
 				+ IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(set)+IOTConstants::CMD_AT_WRAP;
+	if(flag == 2)
+	 	return atCmd;
+	return createNetBytes(atCmd);
 }
 
 /**
@@ -128,9 +143,10 @@ string SeedMachineControlLogic::setAnion(int set)
  * @param lights
  * @return
  */
-string SeedMachineControlLogic::setLightTimer(int curhour,int curmin,int set,int onOroff,int hour,int min,int lights)
+string SeedMachineControlLogic::setLightTimer(int curhour,int curmin,int set,int onOroff,int hour,int min,int lights,int flag)
 {
-    return IOTConstants::CMD_AT_MARK + CMD_AT_LIGHTTIMER + IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId
+	
+     string atCmd = IOTConstants::CMD_AT_MARK + CMD_AT_LIGHTTIMER + IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId
 				+ IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(curhour)
 				+ IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(curmin)
 				+ IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(set)
@@ -139,6 +155,9 @@ string SeedMachineControlLogic::setLightTimer(int curhour,int curmin,int set,int
 				+ IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(min)
 				+ IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(lights)
 				+IOTConstants::CMD_AT_WRAP;
+	 if(flag == 2)
+		return atCmd;
+	 return createNetBytes(atCmd);
 }
 
 //string SeedMachineControlLogic::cancelTimer()
@@ -156,24 +175,30 @@ string SeedMachineControlLogic::setLightTimer(int curhour,int curmin,int set,int
 //            +IOTConstants::CMD_AT_WRAP;
 //}
 
-string SeedMachineControlLogic::dismissWarning(int level, int pump,int nutrition)
+string SeedMachineControlLogic::dismissWarning(int level, int pump,int nutrition,int flag)
 {
     if(nutrition !=0 ) nutrition =1;
     if(pump !=0 ) pump =1;
     if(level !=0 ) level =1;
-    return IOTConstants::CMD_AT_MARK + CMD_AT_WARN_DISMISS + IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId
+    string atCmd = IOTConstants::CMD_AT_MARK + CMD_AT_WARN_DISMISS + IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId
 				+ IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(level)
 				+ IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(pump)
 				+ IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(nutrition)
 				+IOTConstants::CMD_AT_WRAP;
+	 if(flag == 2)
+		return atCmd;
+	 return createNetBytes(atCmd);
 }
 
 
-string SeedMachineControlLogic::setPm25(int set)
+string SeedMachineControlLogic::setPm25(int set,int flag)
 {
-    return IOTConstants::CMD_AT_MARK + CMD_AT_PM25 + IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId
+    string atCmd = IOTConstants::CMD_AT_MARK + CMD_AT_PM25 + IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId
 				+ IOTConstants::PARAM_VALUE_SPLIT + IOTUtil::intToString(set)
 				+IOTConstants::CMD_AT_WRAP;
+	 if(flag == 2)
+		return atCmd;
+	 return createNetBytes(atCmd);
 }
 
 /*************************** 获取设备状态接口 *************************/

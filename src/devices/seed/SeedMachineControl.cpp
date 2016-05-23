@@ -24,65 +24,65 @@ SeedMachineControl::~SeedMachineControl()
 /**
  * 开关机
  */
-string SeedMachineControl::setPower(int set)
+string SeedMachineControl::setPower(int set,int flag)
 {
-    return seedControlLogic->setPower(set);
+    return seedControlLogic->setPower(set,flag);
 }
 
 /**
  * 定时
  */
-string SeedMachineControl::setLightTimer(int curhour,int curmin,int set,int onOroff,int hour,int min,int lights)
+string SeedMachineControl::setLightTimer(int curhour,int curmin,int set,int onOroff,int hour,int min,int lights,int flag)
 {
-    return seedControlLogic->setLightTimer(curhour,curmin,set,onOroff,hour,min,lights);
+    return seedControlLogic->setLightTimer(curhour,curmin,set,onOroff,hour,min,lights,flag);
 }
 
 /**
  * 关闭报警
  */
-string SeedMachineControl::dismissWarning(int level, int pump,int nutrition)
+string SeedMachineControl::dismissWarning(int level, int pump,int nutrition,int flag)
 {
-    return seedControlLogic->dismissWarning(nutrition,pump,level);
+    return seedControlLogic->dismissWarning(nutrition,pump,level,flag);
 }
 
 /**
  * 设置灯开关
  */
-string SeedMachineControl::setLight(int set)
+string SeedMachineControl::setLight(int set,int flag)
 {
-    return seedControlLogic->setLight(set);
+    return seedControlLogic->setLight(set,flag);
 }
 
 /**
  * 设置负离子开关
  */
-string SeedMachineControl::setAnion(int set)
+string SeedMachineControl::setAnion(int set,int flag)
 {
-    return seedControlLogic->setAnion(set);
+    return seedControlLogic->setAnion(set,flag);
 }
 
 /*
  * 设置音乐开关
  */
-string SeedMachineControl::setMusic(int set)
+string SeedMachineControl::setMusic(int set,int flag)
 {
-    return seedControlLogic->setMusic(set);
+    return seedControlLogic->setMusic(set,flag);
 }
 
 /**
  * 音量控制
  */
-string SeedMachineControl::setVolume(int volume)
+string SeedMachineControl::setVolume(int volume,int flag)
 {
-    return seedControlLogic->setVolume(volume);
+    return seedControlLogic->setVolume(volume,flag);
 }
 
 /**
  * 设置PM2.5开关
  */
-string SeedMachineControl::setPm25(int set)
+string SeedMachineControl::setPm25(int set,int flag)
 {
-    return seedControlLogic->setPm25(set);
+    return seedControlLogic->setPm25(set,flag);
 }
 
 /********************************* 状态获取 *********************************/
