@@ -161,12 +161,12 @@ string XlfDeviceWrapper::setQueryDeviceAddress(string deviceId, int soundSet)
 }
 
 // 查询固件版本
-string XlfDeviceWrapper::sendQueryVersion(string deviceId)
+string XlfDeviceWrapper::sendQueryVersion(string deviceId,int flag)
 {
     DeviceControl *devicesControl = (DeviceControl *)getDeviceControl(deviceId);
     if(NULL != devicesControl)
     {
-        return devicesControl->sendQueryVersion();
+        return devicesControl->sendQueryVersion(flag);
     }
     return default_string;
 }

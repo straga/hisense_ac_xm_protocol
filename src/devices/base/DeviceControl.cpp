@@ -69,11 +69,11 @@ string DeviceControl::setQueryDeviceAddress(int soundSet)
 }
 
 // 查询固件版本
-string DeviceControl::sendQueryVersion()
+string DeviceControl::sendQueryVersion(int flag)
 {
     if(devicesLogic!= NULL)
     {
-        return devicesLogic->sendQueryVersion();
+        return devicesLogic->sendQueryVersion(flag);
     }
     return "";
 }

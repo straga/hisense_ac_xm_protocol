@@ -135,14 +135,14 @@ string DeviceInterface::handleOvenCmd(const string &deviceId,const string &jsonC
 		//·ç»ú¿ª¹Ø
 		uid = jsCmdObj.getNumber("UID");
 		int set = jsCmdObj.getNumber("FanPower");
-		cout<<"UID :"<<uid<<",set:"<<set<<endl;
+		// cout<<"UID :"<<uid<<",set:"<<set<<endl;
 		return devWrapper.setOvenFS(deviceId,uid,set,manual,flag);
 		
 	}else if("setOvenZC" == func){
 		//×ª²æ¿ª¹Ø
 		uid = jsCmdObj.getNumber("UID");
 		int RotaryFork = jsCmdObj.getNumber("RotaryFork");
-		cout<<"UID :"<<uid<<",RotaryFork:"<<RotaryFork<<endl;
+		// cout<<"UID :"<<uid<<",RotaryFork:"<<RotaryFork<<endl;
 		return devWrapper.setOvenZC(deviceId, uid, RotaryFork, manual,flag);
 		
 	}else if("setOvenUDTubeTemp" == func){
@@ -152,7 +152,7 @@ string DeviceInterface::handleOvenCmd(const string &deviceId,const string &jsonC
 		int MidTemp = jsCmdObj.getNumber("MidTemp");
 		int DownTemp = jsCmdObj.getNumber("DownTemp");
 		
-		cout<<"UID :"<<uid<<",UpTemp:"<<UpTemp<<",MidTemp:"<<MidTemp<<",DownTemp:"<<DownTemp<<endl;
+		// cout<<"UID :"<<uid<<",UpTemp:"<<UpTemp<<",MidTemp:"<<MidTemp<<",DownTemp:"<<DownTemp<<endl;
 		return devWrapper.setOvenUDTubeTemperature(deviceId,uid,UpTemp,MidTemp,DownTemp,manual,flag);
 	}else if("getOvenStatus" == func){
 		//×´Ì¬²éÑ¯
@@ -170,7 +170,6 @@ string DeviceInterface::handleOvenCmd(const string &deviceId,const string &jsonC
 		int time = jsCmdObj.getNumber("AllTime");
 		string name = jsCmdObj.getString("MenuName");
 			
-		cout<<"UID :"<<uid<<",menuNub:"<<menuNub<<",sub_node:"<<sub_node<<",time:"<<time<<",name:"<<name<<endl;
 		return devWrapper.setOvenMenuName(deviceId,uid,menuNub,sub_node,time,name,manual,flag);
 		
 	}else if("setOvenMenuTempExt" == func){
@@ -219,7 +218,6 @@ string DeviceInterface::handleOvenCmd(const string &deviceId,const string &jsonC
 		uid = jsCmdObj.getNumber("UID");
 		int menuNub = jsCmdObj.getNumber("MenuIdx");
 		
-		cout<<"UID :"<<uid<<",menuNub:"<<menuNub<<endl;
 		return devWrapper.setOvenCheckCurveIntegrity(deviceId,uid,menuNub,manual,flag);
 	
 	}else if("OvenExcuteCurve" == func){
@@ -227,7 +225,6 @@ string DeviceInterface::handleOvenCmd(const string &deviceId,const string &jsonC
 		uid = jsCmdObj.getNumber("UID");
 		int menuNub = jsCmdObj.getNumber("MenuIdx");
 		
-		cout<<"UID :"<<uid<<",menuNub:"<<menuNub<<endl;
 		return devWrapper.setOvenExcuteCurveCmd(deviceId,uid,menuNub,manual,flag);
 	
 	}else if("setOvenD" == func){
@@ -235,7 +232,6 @@ string DeviceInterface::handleOvenCmd(const string &deviceId,const string &jsonC
 		uid = jsCmdObj.getNumber("UID");
 		int LampSet = jsCmdObj.getNumber("LampSet");
 		
-		cout<<"UID :"<<uid<<",LampSet:"<<LampSet<<endl;
 		return devWrapper.setOvenD(deviceId,uid,LampSet,manual,flag);
 		
 	}else if("getOvenMenuTempExt" == func){
@@ -245,7 +241,6 @@ string DeviceInterface::handleOvenCmd(const string &deviceId,const string &jsonC
 		int sub_node = jsCmdObj.getNumber("CurveIdx");
 		int FrameNo = jsCmdObj.getNumber("FrameNo");
 		
-		cout<<"UID :"<<uid<<",menuNub:"<<menuNub<<endl;
 		return devWrapper.setOvenMenuTemperatureExtend(deviceId,menuNub,sub_node,FrameNo,manual,flag);
 
 	}else if("OvenPOrCCurve" == func){
@@ -253,7 +248,6 @@ string DeviceInterface::handleOvenCmd(const string &deviceId,const string &jsonC
 		uid = jsCmdObj.getNumber("UID");
 		int menuNub = jsCmdObj.getNumber("MenuIdx");
 		
-		cout<<"UID :"<<uid<<",menuNub:"<<menuNub<<endl;
 		return devWrapper.setOvenCancelExcuteCurveCmd(deviceId,uid,menuNub,manual,flag);
 	
 	}else if("OvenCancelExcuteCurve" == func){
@@ -261,7 +255,6 @@ string DeviceInterface::handleOvenCmd(const string &deviceId,const string &jsonC
 		uid = jsCmdObj.getNumber("UID");
 		int menuNub = jsCmdObj.getNumber("MenuIdx");
 		
-		cout<<"UID :"<<uid<<",menuNub:"<<menuNub<<endl;
 		return devWrapper.setOvenCancelExcuteCurveCmd(deviceId,uid, menuNub ,manual,flag);
 	
 	}else if("getOvenMenuName" == func){
@@ -269,11 +262,10 @@ string DeviceInterface::handleOvenCmd(const string &deviceId,const string &jsonC
 		uid = jsCmdObj.getNumber("UID");
 		int menuNub = jsCmdObj.getNumber("MenuIdx");
 		
-		cout<<"UID :"<<uid<<",menuNub:"<<menuNub<<endl;
 		return devWrapper.setOvenMenuName(deviceId, menuNub,manual,flag);
 	
 	}else{
-		return jsonRet.putString(RESULT_KEY,"cmd not support\r\n").toString();
+		return jsonRet.putString(RESULT_KEY,"cmd not support").toString();
 	}
 	return "";
 }
@@ -290,7 +282,7 @@ string DeviceInterface::handleSeedCmd(const string &deviceId,const string &jsonC
 	
 
 	if(func == ""){
-		return jsonRet.putString(RESULT_KEY,"cmd not found\r\n").toString();
+		return jsonRet.putString(RESULT_KEY,"cmd not found").toString();
 	}
 	
 	manual = jsCmdObj.getNumber(SOUND_KEY) == 1 ? : 0;
@@ -362,7 +354,7 @@ string DeviceInterface::handleSeedCmd(const string &deviceId,const string &jsonC
 		return devWrapper.setSeedMachinePm25(deviceId,set,flag);
 									
 	}else{
-		return jsonRet.putString(RESULT_KEY,"cmd not support\r\n").toString();
+		return jsonRet.putString(RESULT_KEY,"cmd not support").toString();
 	}
 	return "";
 }

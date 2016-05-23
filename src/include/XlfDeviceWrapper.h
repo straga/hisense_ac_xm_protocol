@@ -77,7 +77,7 @@ public:
     string setQueryDeviceAddress(string deviceId, int soundSet);
     
     // 查询固件版本
-    string sendQueryVersion(string deviceId);
+    string sendQueryVersion(string deviceId,int flag);
     
     // 获取固件版本
     string getSoftVersion(string deviceId);

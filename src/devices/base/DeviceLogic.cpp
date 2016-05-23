@@ -63,12 +63,14 @@ string DeviceLogic::setQueryDeviceAddress(int soundSet)
 }
 
 // 查询固件版本
-string DeviceLogic::sendQueryVersion()
+string DeviceLogic::sendQueryVersion(int flag)
 {
     string atcmd = IOTConstants::CMD_AT_MARK + "KLCXB" +
         IOTConstants::CMD_AT_EQUALS_SINGNAL + deviceId +
         IOTConstants::PARAM_VALUE_SPLIT +
         "0" + IOTConstants::CMD_AT_WRAP;
+	if(2 == flag)
+		return atcmd;
     return createNetBytes(atcmd);
 }
 

@@ -93,7 +93,7 @@ public:
     string setQueryDeviceAddress(int soundSet);
     
     // 查询固件版本
-    string sendQueryVersion();
+    string sendQueryVersion(int flag);
     
     // 获取固件版本
     string getSoftVersion();
